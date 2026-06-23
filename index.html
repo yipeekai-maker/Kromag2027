@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kromag 2027 | Assez de palabres. Place aux baffes.</title>
+    <!-- Favicon Barbare en SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23991b1b'/><path d='M9 10 L23 10 L16 24 Z' fill='%23ffffff'/><rect x='14' y='6' width='4' height='18' fill='%23475569'/><path d='M6 12 Q16 8 26 12' stroke='%23d97706' stroke-width='3' fill='none'/></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Metamorphous (style fantastique/runique), Permanent Marker (manuscrit féroce), Inter (corps de texte lisible) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=Permanent+Marker&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        barbare: {
+                            blood: '#991b1b',      // Rouge sang de combat
+                            crimson: '#7f1d1d',    // Rouge plus sombre pour dégradés
+                            steel: '#334155',      // Acier des armes
+                            darksteel: '#1e293b',  // Acier trempé/ombre
+                            bronze: '#d97706',     // Or pille/bronze
+                            gold: '#f59e0b',       // Or pur brillant
+                            stone: '#111827',      // Fond roche noire
+                            ash: '#f5f5f4',        // Blanc cendre pour texte
+                            sand: '#e7e5e4'        // Blanc parchemin
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        epic: ['Metamorphous', 'serif'],
+                        barb: ['Permanent Marker', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Texture rocheuse sombre pour le fond */
+        .rock-texture {
+            background-color: #0b0f17;
+            background-image: radial-gradient(rgba(153, 27, 27, 0.15) 1px, transparent 0), radial-gradient(rgba(217, 119, 6, 0.08) 1px, transparent 0);
+            background-size: 16px 16px;
+            background-position: 0 0, 8px 8px;
+        }
+
+        /* Effet de brillance d'acier chauffé à blanc */
+        .steel-glow {
+            box-shadow: 0 0 20px rgba(153, 27, 27, 0.4);
+            border: 2px solid #991b1b;
+        }
+
+        /* Animation d'apparition de la hache */
+        .axe-swing {
+            animation: swing 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform-origin: top center;
+        }
+        @keyframes swing {
+            0% { transform: rotate(-45deg); opacity: 0; }
+            50% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); opacity: 1; }
+        }
+
+        /* Défilement en fondu pour les vues */
+        .view-transition {
+            animation: sliceIn 0.4s ease-out forwards;
+        }
+        @keyframes sliceIn {
+            from { opacity: 0; transform: scale(0.97) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Animation du bouton de l'Oracle en fusion */
+        .fusion-pulse {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(217, 119, 6, 0.5); }
+            100% { box-shadow: 0 0 30px rgba(153, 27, 27, 0.9); }
+        }
+    </style>
+</head>
+<body class="rock-texture min-h-screen flex flex-col font-sans text-ash selection:bg-barbare-gold selection:text-black">
+
+    <!-- Version barbare du drapeau français : Sang, Os et Cendre calcinée -->
+    <div class="h-2 w-full flex">
+        <div class="h-full w-1/3 bg-red-800"></div>
+        <div class="h-full w-1/3 bg-stone-200"></div>
+        <div class="h-full w-1/3 bg-neutral-900"></div>
+    </div>
+
+    <header class="bg-barbare-stone/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-barbare-blood/30">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+            <a href="#" onclick="showPage('accueil')" class="flex items-center gap-3">
+                <!-- Logo : Double hache croisée sur urne électorale cassée -->
+                <div class="relative w-12 h-12 rounded-lg border-2 border-barbare-blood flex items-center justify-center bg-gradient-to-br from-barbare-blood to-black shadow-lg overflow-hidden">
+                    <span class="font-barb text-xl text-barbare-gold tracking-tighter leading-none text-center">PGG</span>
+                    <div class="absolute bottom-0 left-0 right-0 h-1 bg-barbare-bronze"></div>
+                </div>
+                <div>
+                    <span class="font-epic font-black text-xl tracking-wider text-barbare-gold block leading-none">KROMAG 2027</span>
+                    <span class="text-[10px] font-bold text-barbare-ash tracking-widest uppercase block mt-1">PARTI DU GRAND GOURDIN</span>
+                </div>
+            </a>
+            
+            <nav class="flex flex-wrap items-center gap-2 sm:gap-4 mt-3 md:mt-0">
+                <button onclick="showPage('accueil')" id="nav-accueil" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition bg-barbare-blood text-white shadow-md">QG de Campagne</button>
+                
+                <!-- MENU DÉROULANT DES THEMES -->
+                <div class="relative group inline-block">
+                    <button onclick="showPage('programme')" id="nav-programme" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20">
+                        <span>Le Programme</span>
+                    </button>
+                    <!-- Liste déroulante des catégories barbares -->
+                    <div class="absolute left-0 top-full pt-2 w-64 hidden group-hover:block z-50">
+                        <div id="dropdown-menu" class="bg-barbare-stone/95 backdrop-blur-md border border-barbare-blood/30 rounded-xl shadow-2xl py-2">
+                            <!-- Rempli dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="showPage('candidat')" id="nav-candidat" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20">Le Barbare</button>
+                <button onclick="showPage('contact')" id="nav-contact" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20">Rejoins la Horde</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ZONE DE NOTIFICATIONS PERSO (CORNE DE BRUME / ALERTE) -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm"></div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 py-8">
+
+        <!-- ============================================== -->
+        <!-- VIEW 1: ACCUEIL                                -->
+        <!-- ============================================== -->
+        <section id="view-accueil" class="view-transition space-y-12">
+            
+            <!-- HERO / REPRODUCTION DE L'AFFICHE DE CAMPAGNE DE KROMAG -->
+            <div class="bg-gradient-to-b from-barbare-darksteel to-black rounded-3xl shadow-2xl overflow-hidden border-2 border-barbare-blood/40 grid grid-cols-1 lg:grid-cols-12">
+                
+                <!-- Partie gauche : Slogans sanglants et Textes ravageurs -->
+                <div class="p-8 sm:p-12 lg:col-span-7 flex flex-col justify-between space-y-8">
+                    <div class="space-y-6">
+                        <!-- En-tête de parti parodique -->
+                        <span class="inline-flex items-center gap-2 bg-barbare-blood/30 border border-barbare-blood text-barbare-gold font-bold text-xs uppercase px-3 py-1.5 rounded-full tracking-widest">
+                            🔥 Élection Présidentielle 2027
+                        </span>
+
+                        <!-- Nom d'affiche géant -->
+                        <div class="space-y-1">
+                            <h1 class="font-epic font-black text-5xl sm:text-7xl tracking-tight text-red-600 leading-none">
+                                KROMAG
+                            </h1>
+                            <span class="font-epic font-bold text-2xl sm:text-3xl text-barbare-ash block">LE FENDEUR DE CRÂNES</span>
+                            <div class="h-1.5 w-48 bg-barbare-gold rounded-full my-4"></div>
+                        </div>
+
+                        <!-- Slogan féroce manuscrit -->
+                        <div class="space-y-3">
+                            <p class="font-barb text-3xl sm:text-5xl text-barbare-gold rotate-[-2deg] origin-left uppercase tracking-wider">
+                                "Assez de palabres. Place aux baffes."
+                            </p>
+                            <!-- Picto féroce barbare -->
+                            <div class="flex items-center gap-3 text-barbare-gold pl-2">
+                                <svg class="w-12 h-12 stroke-current fill-none stroke-[2]" viewBox="0 0 24 24">
+                                    <path d="M12 2L2 22h20L12 2z" stroke-linejoin="round"/>
+                                    <path d="M12 11v4M12 18h.01" stroke-linecap="round"/>
+                                    <path d="M8 14l8 4"/>
+                                </svg>
+                                <span class="text-xs font-bold uppercase tracking-widest text-barbare-ash/80">KROM VEUT DES CRÂNES, PAS DU PIB !</span>
+                            </div>
+                        </div>
+
+                        <p class="text-barbare-sand text-lg leading-relaxed max-w-xl">
+                            Françaises, Français, Horde de France ! Les autres candidats vous promettent la croissance, la baisse des impôts et de longs débats administratifs de lâches. <strong>Moi, Kromag, je promets l'acier, le retour des duels à mort constitutionnels et 100 mesures concrètes de violence thérapeutique nationale.</strong>
+                        </p>
+                    </div>
+
+                    <!-- Les 3 piliers du bas de l'affiche de Kromag -->
+                    <div class="grid grid-cols-3 gap-3 pt-6 border-t border-barbare-blood/20">
+                        <div class="text-center p-2 cursor-pointer hover:bg-white/5 rounded-xl transition" onclick="playHorn(220, 0.4)">
+                            <div class="w-10 h-10 mx-auto rounded-full bg-barbare-blood/20 flex items-center justify-center text-barbare-gold mb-2 border border-barbare-blood/30">
+                                🪓
+                            </div>
+                            <h4 class="font-epic font-bold text-xs sm:text-sm text-barbare-ash">Tranche Net</h4>
+                        </div>
+                        <div class="text-center p-2 border-x border-barbare-blood/20 cursor-pointer hover:bg-white/5 rounded-xl transition" onclick="playHorn(180, 0.5)">
+                            <div class="w-10 h-10 mx-auto rounded-full bg-barbare-blood/20 flex items-center justify-center text-barbare-gold mb-2 border border-barbare-blood/30">
+                                🍗
+                            </div>
+                            <h4 class="font-epic font-bold text-xs sm:text-sm text-barbare-ash">Gras Banquet</h4>
+                        </div>
+                        <div class="text-center p-2 cursor-pointer hover:bg-white/5 rounded-xl transition" onclick="playHorn(150, 0.6)">
+                            <div class="w-10 h-10 mx-auto rounded-full bg-barbare-blood/20 flex items-center justify-center text-barbare-gold mb-2 border border-barbare-blood/30">
+                                🛡️
+                            </div>
+                            <h4 class="font-epic font-bold text-xs sm:text-sm text-barbare-ash">Pas de Blabla</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partie droite : Photo stylisée de Kromag -->
+                <div class="lg:col-span-5 flex flex-col justify-between items-center p-8 relative min-h-[450px] bg-gradient-to-t from-barbare-blood/40 to-transparent">
+                    <!-- Avatar dessiné / SVG de Kromag : Un barbare musclé en costume de politicien déchiré -->
+                    <div class="absolute inset-0 flex items-center justify-center p-4">
+                        <svg class="w-full h-full max-h-[380px] opacity-20 pointer-events-none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,5 90,30 90,75 50,95 10,75 10,30" fill="none" stroke="#991b1b" stroke-width="2"/>
+                            <path d="M30,35 L50,15 L70,35 L70,65 L50,85 L30,65 Z" fill="#7f1d1d" opacity="0.3"/>
+                        </svg>
+                    </div>
+
+                    <!-- Badge officiel "Votez Kromag" flottant -->
+                    <div class="absolute top-6 right-6 bg-red-800 rounded-full p-4 shadow-2xl border-4 border-barbare-gold rotate-12 flex items-center justify-center w-32 h-32 cursor-pointer transform hover:scale-110 active:scale-95 transition" onclick="playHorn(330, 0.5)">
+                        <div class="text-center">
+                            <span class="font-barb text-2xl text-barbare-gold block leading-tight">VOTEZ</span>
+                            <span class="font-epic font-black text-xl text-white block leading-none">KROMAG</span>
+                            <div class="h-1 w-16 bg-barbare-gold mx-auto mt-1"></div>
+                        </div>
+                    </div>
+
+                    <!-- Visuel central du candidat interactif -->
+                    <div class="my-auto text-center space-y-6 z-10">
+                        <!-- Masque SVG barbare ultra-stylisé -->
+                        <div class="w-48 h-48 mx-auto bg-stone-900 rounded-full border-4 border-barbare-blood flex items-center justify-center overflow-hidden shadow-2xl relative">
+                            <span class="text-7xl">🧔</span>
+                            <div class="absolute bottom-0 bg-barbare-blood/90 w-full py-1">
+                                <span class="font-epic text-xs text-barbare-gold font-bold">100% BARBARE</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-black/75 backdrop-blur-md px-6 py-4 rounded-2xl border border-barbare-blood/40">
+                            <h3 class="font-epic text-barbare-gold font-bold text-lg">KROMAG LE FENDEUR</h3>
+                            <p class="text-xs text-barbare-sand mt-1">"Le seul candidat qui a un certificat officiel de terrassage d'ours brun."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LE BOUTON MAGIQUE : "L'ORACLE DE LA MASSUE" -->
+            <div class="bg-gradient-to-r from-barbare-blood to-red-950 rounded-3xl p-8 sm:p-12 text-white text-center shadow-2xl relative overflow-hidden border border-barbare-gold/20">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,119,6,0.15),transparent_45%)]"></div>
+                
+                <div class="relative z-10 max-w-3xl mx-auto space-y-8">
+                    <div class="space-y-4">
+                        <span class="bg-barbare-gold text-black font-black text-xs uppercase px-4 py-1.5 rounded-full tracking-widest border border-black/30 inline-block font-epic">
+                            L'ORACLE EN FUSION
+                        </span>
+                        <h2 class="font-epic font-black text-3xl sm:text-5xl tracking-tight text-barbare-gold">La Roulette du Grand Gourdin</h2>
+                        <p class="text-barbare-sand text-base sm:text-lg max-w-2xl mx-auto">
+                            Lisez le destin de la France écrit avec de la sueur et de la bière. Faites tourner la roulette pour piocher une de nos 100 mesures barbares au hasard !
+                        </p>
+                    </div>
+
+                    <!-- Bouton Déclencheur Barjot -->
+                    <div>
+                        <button onclick="tirerMesureBarbare()" class="fusion-pulse group relative inline-flex items-center gap-3 bg-barbare-gold text-black font-epic font-black text-lg sm:text-2xl px-10 py-5 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-yellow-400">
+                            <span class="text-3xl animate-spin">🪓</span>
+                            <span>FRAPPER L'ORACLE !</span>
+                        </button>
+                    </div>
+
+                    <!-- Cadre de Résultat de la Mesure -->
+                    <div class="bg-black/90 text-barbare-ash rounded-2xl p-6 sm:p-8 text-left shadow-2xl border-2 border-barbare-blood/30 min-h-[160px] flex items-center justify-center">
+                        
+                        <!-- État par défaut -->
+                        <div id="mesure-placeholder" class="text-center py-6 space-y-3 w-full">
+                            <p class="font-barb text-2xl sm:text-3xl text-barbare-gold animate-pulse">
+                                FRARE LA ROUE SI TU ES UN GUERRIER !
+                            </p>
+                            <p class="text-xs text-barbare-ash/50 font-semibold tracking-wider uppercase">Aucun fonctionnaire de Bercy n'a survécu à la rédaction de ce programme</p>
+                        </div>
+
+                        <!-- État après clic -->
+                        <div id="mesure-resultat" class="hidden w-full space-y-6">
+                            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-barbare-blood/30 pb-4">
+                                <div class="flex items-center gap-3">
+                                    <span id="res-icone" class="text-4xl bg-barbare-blood/20 p-2 rounded-xl">🪓</span>
+                                    <div>
+                                        <span id="res-categorie" class="text-xs font-black uppercase tracking-wider text-barbare-gold font-epic">Catégorie</span>
+                                        <span id="res-id" class="text-[10px] font-bold text-barbare-ash/50 block">CODE: BRB-00</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="partagerMesure('twitter')" class="p-2 rounded-full hover:bg-white/10 text-barbare-ash transition" title="Partager sur X (Twitter)">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                    </button>
+                                    <button onclick="copierMesure()" class="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-barbare-blood text-white text-xs font-semibold hover:bg-red-700 transition font-epic">
+                                        <span>Copier</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <h3 id="res-titre" class="font-epic font-black text-xl sm:text-2xl text-barbare-gold">Titre de la Mesure</h3>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-4">
+                                    <div class="bg-barbare-stone p-4 rounded-xl border border-barbare-blood/20">
+                                        <strong class="text-red-500 block mb-1 font-epic">Pourquoi c'est tout pourri aujourd'hui :</strong>
+                                        <p id="res-postulat" class="text-barbare-sand leading-relaxed">...</p>
+                                    </div>
+                                    <div class="bg-barbare-stone p-4 rounded-xl border border-barbare-bronze/20">
+                                        <strong class="text-barbare-gold block mb-1 font-epic">L'action de Kromag :</strong>
+                                        <p id="res-action" class="text-barbare-sand leading-relaxed">...</p>
+                                    </div>
+                                    <div class="bg-barbare-stone p-4 rounded-xl border border-yellow-800/20">
+                                        <strong class="text-yellow-500 block mb-1 font-epic">Le Financement Sauvage :</strong>
+                                        <p id="res-financement" class="text-barbare-sand leading-relaxed">...</p>
+                                    </div>
+                                    <div class="bg-barbare-stone p-4 rounded-xl border border-emerald-800/20">
+                                        <strong class="text-emerald-500 block mb-1 font-epic">Ce qui va se passer après :</strong>
+                                        <p id="res-repercussions" class="text-barbare-sand leading-relaxed">...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- RAPIDE PRÉSENTATION DES THÉMATIQUES -->
+            <div class="space-y-6">
+                <div class="text-center max-w-2xl mx-auto space-y-2">
+                    <h2 class="font-epic font-black text-3xl tracking-tight text-barbare-gold">Les 10 Sentiers de l'Acier</h2>
+                    <p class="text-barbare-sand">Explorez les 10 domaines de conquête administrative de Kromag pour rebâtir la France.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="themes-grid">
+                    <!-- Rempli dynamiquement -->
+                </div>
+
+                <div class="text-center pt-4">
+                    <button onclick="showPage('programme')" class="inline-flex items-center gap-2 bg-barbare-blood text-white hover:bg-red-700 transition font-epic font-bold px-8 py-4 rounded-full text-sm shadow-lg border border-barbare-gold/20">
+                        <span>VOIR LE GRIMOIRE DES 100 MESURES</span>
+                        <span>⚔️</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 2: LE PROGRAMME                           -->
+        <!-- ============================================== -->
+        <section id="view-programme" class="hidden view-transition space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-barbare-blood/30 pb-6">
+                <div>
+                    <h1 class="font-epic font-black text-3xl sm:text-4xl text-barbare-gold">Le Grimoire Complet (100 Mesures)</h1>
+                    <p class="text-barbare-sand mt-1">100 mesures absolues pour éradiquer le blabla de notre société.</p>
+                </div>
+                <!-- Recherche -->
+                <div class="relative max-w-sm w-full">
+                    <input type="text" id="search-input" oninput="filtrerProgramme()" placeholder="Rechercher une baffe administrative..." class="w-full bg-stone-900 border border-barbare-blood/40 rounded-xl py-3 pl-11 pr-4 focus:outline-none focus:ring-2 focus:ring-barbare-gold focus:border-transparent text-sm text-white">
+                    <span class="absolute left-4 top-3.5 text-barbare-gold">
+                        🔎
+                    </span>
+                </div>
+            </div>
+
+            <!-- Liste des catégories & mesures -->
+            <div id="programme-list" class="space-y-12">
+                <!-- Rempli dynamiquement -->
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 3: LE CANDIDAT                            -->
+        <!-- ============================================== -->
+        <section id="view-candidat" class="hidden view-transition space-y-8 max-w-4xl mx-auto">
+            <div class="bg-gradient-to-b from-stone-900 to-black rounded-3xl p-8 sm:p-12 shadow-2xl border-2 border-barbare-blood/30 space-y-8">
+                
+                <div class="flex flex-col md:flex-row items-center gap-8 border-b border-barbare-blood/30 pb-8">
+                    <!-- Photo de Kromag stylisée -->
+                    <div class="w-44 h-44 rounded-full bg-gradient-to-tr from-barbare-blood to-barbare-gold shadow-2xl flex-shrink-0 overflow-hidden p-1.5 border-4 border-barbare-darksteel">
+                        <div class="w-full h-full rounded-full bg-stone-950 flex items-center justify-center text-7xl">
+                            🧔
+                        </div>
+                    </div>
+                    <div class="space-y-3 text-center md:text-left">
+                        <h1 class="font-epic font-black text-3xl sm:text-4xl text-barbare-gold">Kromag le Fendeur de Crânes</h1>
+                        <p class="font-barb text-2xl text-barbare-blood rotate-[-1deg]">"Moins de paperasse, plus d'audace."</p>
+                        <p class="text-xs font-bold uppercase tracking-wider text-barbare-gold">Candidat officiel du Parti du Grand Gourdin (PGG)</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 text-barbare-sand leading-relaxed text-base">
+                    <h3 class="font-epic font-black text-xl text-barbare-gold">Le parcours d'une force de la nature</h3>
+                    <p>
+                        Égaré à notre époque suite à un orage chamanique mal négocié lors du pillage d'une abbaye de Normandie en l'an 900, Kromag a immédiatement compris le fléau de notre millénaire : **la lenteur bureaucratique**.
+                    </p>
+                    <p>
+                        Choqué par la complexité de l'impôt sur le revenu, outré par l'inefficacité des anesthésies chimiques comparées à un bon coup de rondin, Kromag a fondé le **Parti du Grand Gourdin** pour proposer aux citoyens de revenir aux fondamentaux de l'existence : l'hydromel, la force physique et les décisions prises à coups de poing.
+                    </p>
+
+                    <blockquote class="border-l-4 border-barbare-gold pl-4 py-2 italic bg-barbare-blood/10 rounded-r-xl text-yellow-100">
+                        "Les gens de ce siècle passent leur journée à appuyer sur des boutons magiques et à remplir des parchemins Cerfa. À mon époque, si tu voulais une maison, tu chassais les gobelins dedans et tu t'installais. C'est ça, la vraie simplification foncière."
+                    </blockquote>
+
+                    <h3 class="font-epic font-black text-xl text-barbare-gold">Le Programme biophysique de l'instinct</h3>
+                    <p>
+                        Kromag ne croit pas aux modèles macroéconomiques compliqués de l'INSEE. Il ne connaît qu'un seul calcul : **si tu as faim, mange un dindon; si ton voisin est trop riche, pille-le.**
+                    </p>
+                    <p>
+                        Un vote pour Kromag en 2027 est la garantie d'avoir un chef d'État fort, capable de soulever une armoire normande à mains nues, et de terrifier les diplomates internationaux lors des banquets de l'Élysée en broyant sa chope avec les dents.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- VIEW 4: CONTACT                                -->
+        <!-- ============================================== -->
+        <section id="view-contact" class="hidden view-transition space-y-8 max-w-2xl mx-auto">
+            <div class="bg-gradient-to-b from-stone-900 to-black rounded-3xl p-8 sm:p-12 shadow-2xl border-2 border-barbare-blood/30 space-y-8">
+                <div class="text-center space-y-3">
+                    <h1 class="font-epic font-black text-3xl sm:text-4xl text-barbare-gold">Rejoins la Horde !</h1>
+                    <p class="text-barbare-sand">Prête serment à Kromag et inscris-toi pour recevoir les ordres de combat pour la campagne 2027.</p>
+                </div>
+
+                <form id="contact-form" onsubmit="submitContact(event)" class="space-y-6">
+                    <input type="hidden" name="access_key" value="KROMAG_PRESIDENTIAL_SECRET_KEY">
+                    <input type="hidden" name="subject" value="Nouveau guerrier rallié à la Horde de Kromag">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold uppercase tracking-wider text-barbare-gold font-epic">Nom de Guerrier</label>
+                            <input type="text" name="name" required placeholder="Ex: Ragnar le Sanglant" class="w-full bg-stone-950 border border-barbare-blood/40 focus:ring-2 focus:ring-barbare-gold rounded-xl px-4 py-3 text-sm focus:outline-none text-white">
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold uppercase tracking-wider text-barbare-gold font-epic">Canal de Pigeon Voyageur (Email)</label>
+                            <input type="email" name="email" required placeholder="Ex: ragnar@clanhorde.com" class="w-full bg-stone-950 border border-barbare-blood/40 focus:ring-2 focus:ring-barbare-gold rounded-xl px-4 py-3 text-sm focus:outline-none text-white">
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold uppercase tracking-wider text-barbare-gold font-epic">Région à conquérir (Département)</label>
+                        <select name="departement" id="departement-select" required class="w-full bg-stone-950 border border-barbare-blood/40 focus:ring-2 focus:ring-barbare-gold rounded-xl px-4 py-3 text-sm focus:outline-none text-barbare-sand">
+                            <option value="">Sélectionner une province...</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold uppercase tracking-wider text-barbare-gold font-epic">Offrande ou Message à Kromag</label>
+                        <textarea name="message" required rows="4" placeholder="Exprime ta loyauté ou promets-nous tes plus beaux moutons..." class="w-full bg-stone-950 border border-barbare-blood/40 focus:ring-2 focus:ring-barbare-gold rounded-xl px-4 py-3 text-sm focus:outline-none text-white"></textarea>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" name="serment_sang" id="voter-checkbox" required class="mt-1 h-4 w-4 rounded border-barbare-blood text-barbare-blood focus:ring-barbare-gold bg-stone-950">
+                        <label for="voter-checkbox" class="text-xs text-barbare-sand leading-tight cursor-pointer">
+                            Je jure allégeance absolue au Parti du Grand Gourdin et accepte d'être jeté aux ours en cas de trahison électorale.
+                        </label>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="w-full bg-barbare-blood hover:bg-red-700 text-white font-epic font-bold tracking-wider py-4 rounded-xl text-center shadow-lg border border-barbare-gold/40 flex items-center justify-center gap-2 transform active:scale-95 transition">
+                        <span>⚔️ SIGNER LE SERMENT PAR LE SANG</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-white border-t-2 border-barbare-blood/40 mt-12 py-12">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="space-y-4">
+                <span class="font-epic font-black text-xl tracking-wider block text-barbare-gold">KROMAG 2027</span>
+                <p class="text-sm text-barbare-sand leading-relaxed">
+                    Un projet politique né de l'acier et de la massue pour purifier l'administration moderne de son blabla perpétuel.
+                </p>
+                <div class="flex items-center gap-2">
+                    <span class="inline-block h-3 w-3 rounded-full bg-red-800"></span>
+                    <span class="inline-block h-3 w-3 rounded-full bg-stone-200"></span>
+                    <span class="inline-block h-3 w-3 rounded-full bg-neutral-900"></span>
+                    <span class="text-xs text-gray-400 font-semibold uppercase ml-2">Pour la Horde Sauvage</span>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <h4 class="font-epic font-bold text-sm uppercase tracking-widest text-barbare-gold">Mises en Garde</h4>
+                <p class="text-xs text-barbare-sand/70 leading-relaxed">
+                    Ce programme est une satire politique destinée à souligner par l'absurde et la caricature les travers administratifs, comportementaux et diplomatiques de notre époque. L'utilisation d'ours bruns pour le tri sélectif n'est pas recommandée à domicile.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-epic font-bold text-sm uppercase tracking-widest text-barbare-gold">Sentiers Rapides</h4>
+                <ul class="text-sm space-y-2 text-barbare-sand">
+                    <li><a href="#" onclick="showPage('accueil')" class="hover:text-barbare-gold transition">La Roulette de la Massue</a></li>
+                    <li><a href="#" onclick="showPage('programme')" class="hover:text-barbare-gold transition">Le Grimoire des 100 Mesures</a></li>
+                    <li><a href="#" onclick="showPage('candidat')" class="hover:text-barbare-gold transition">Qui est Kromag ?</a></li>
+                    <li><a href="#" onclick="showPage('contact')" class="hover:text-barbare-gold transition">Rejoindre la Horde</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto px-4 border-t border-barbare-blood/20 mt-8 pt-8 text-center text-xs text-barbare-sand/40">
+            © 2026-2027 Kromag 2027 - Tous droits de pillage réservés par décret d'acier.
+        </div>
+    </footer>
+
+    <script>
+        // Le chaman de Kromag a jeté un sort de silence sur la corne pour préserver la paix républicaine.
+        function playHorn(frequency = 120, duration = 0.8) {
+            // Pas de bruit, le silence est d'or pour concentrer la rage de combat.
+        }
+
+        // LES 10 THÉMATIQUES DE KROMAG (Régies par la force)
+        const categories = {
+            "economie": { title: "Économie, Fiscalité et Pillage", icon: "💰" },
+            "education": { title: "Éducation & Épreuves de Force", icon: "🪓" },
+            "justice": { title: "Justice, Duels et Frelons", icon: "⚖️" },
+            "ecologie": { title: "Écologie Sauvage & Chars à pointes", icon: "🐗" },
+            "sante": { title: "Santé, Massue et Cataplasmes", icon: "🩸" },
+            "travail": { title: "Travail, DRH et Mêlées", icon: "🛠️" },
+            "logement": { title: "Huttes, Châteaux et Galères", icon: "🛖" },
+            "culture": { title: "Culture, Bardes et Tambours", icon: "🥁" },
+            "diplomatie": { title: "Diplomatie de la Terreur & Drakkars", icon: "⛵" },
+            "institutions": { title: "Sorcellerie administrative", icon: "🏛️" }
+        };
+
+        // LES 100 MESURES DE CONQUÊTE DE KROMAG
+        const programme = [
+            // ECONOMIE (10 mesures)
+            { id: "eco-01", cat: "economie", titre: "Le Poing d'Or souverain", postulat: "L'euro est une monnaie de banquiers peureux qu'on ne peut même pas croquer pour vérifier si c'est du métal pur.", action: "Bannissement de l'euro, remplacement par le Poing d'Or basé uniquement sur le poids du métal pillé aux voisins.", financement: "Pillage à coups de hache des coffres-forts des pays frontaliers réputés trop calmes.", repercussions: "Fin de l'inflation, car le premier commerçant qui augmente ses prix est provoqué en duel à mort par le ministre du Pillage." },
+            { id: "eco-02", cat: "economie", titre: "Taxe forfaitaire de bétail", postulat: "Déclarer ses impôts sur internet provoque des maux de tête incompatibles avec la guerre.", action: "Abolition de l'impôt sur le revenu. Remplacement par une taxe annuelle fixe de 10% prélevée uniquement en têtes de bétail ou en sacs d'orge.", financement: "Les fonctionnaires des impôts iront eux-mêmes capturer les chèvres récalcitrantes.", repercussions: "Simplification fiscale absolue. Les foyers français retrouvent la joie de posséder des chèvres de combat." },
+            { id: "eco-03", cat: "economie", titre: "Redressement par l'assaut physique", postulat: "Le déficit commercial de la France provient du fait qu'on demande poliment aux autres pays de nous acheter nos produits.", action: "Envoi régulier de notre flotte de drakkars publics pour piller les nations excédentaires sous-armées.", financement: "Gratuit, les drakkars s'autofinancent dès le premier monastère côtier rencontré.", repercussions: "Excédent commercial immédiat et approvisionnement constant en reliques d'or fin." },
+            { id: "eco-04", cat: "economie", titre: "Banques gardées par des ours", postulat: "Les banques virtuelles modernes permettent aux hackers de voler votre argent sans même recevoir un seul coup d'épée.", action: "Nationalisation des banques pour transformer chaque agence en coffre physique gardé par des ours bruns affamés.", financement: "Rémunération des gardiens de banque en carcasses de mouton fraîches.", repercussions: "Taux de braquage et de cybercriminalité réduit à 0% dans toute le pays." },
+            { id: "eco-05", cat: "economie", titre: "Le Livret 'Trou derrière la Hutte'", postulat: "Les banquiers spéculent sur votre épargne et créent des crises financières avec de l'argent imaginaire.", action: "Remplacement officiel du Livret A par le 'Livret Trou derrière la Hutte'. Rendement de 0% mais garanti sans crise spéculative.", financement: "Une pelle et un morceau de cuir étanche fournis par la mairie.", repercussions: "Épargne sécurisée à 100% contre les krachs boursiers." },
+            { id: "eco-06", cat: "economie", titre: "Bannissement des termes de lâches", postulat: "Des mots comme 'synergies', 'optimisation fiscale' ou 'disruptif' polluent l'air et énervent le peuple.", action: "Interdiction pénale de prononcer ces mots. Tout contrevenant recevra 10 coups de lanière de cuir sur la place publique.", financement: "Ne coûte rien, rapporte des peaux de bêtes confisquées aux contrevenants récidivistes.", repercussions: "Les réunions d'entreprises deviennent beaucoup plus silencieuses et productives." },
+            { id: "eco-07", cat: "economie", titre: "TVA 0% sur la survie", postulat: "Taxer la nourriture et les outils de survie est une trahison d'un chef indigne.", action: "TVA à 0% sur l'hydromel, la cuisse de sanglier fraîche, les fourrures d'ours et les haches de guerre.", financement: "Compensé par une taxe de 300% sur le quinoa importé et les salades en boîte plastique.", repercussions: "Guerriers nourris au gras de porc, prêts à défendre le territoire." },
+            { id: "eco-08", cat: "economie", titre: "Le CAC 40 de la Fosse", postulat: "Le cours des actions est régi par des ordinateurs qui ne comprennent rien à la force brute.", action: "Remplacement de la Bourse de Paris par une grande mêlée annuelle. Le PDG survivant voit son action grimper.", financement: "Billetterie de l'arène retransmise en direct à la télévision nationale.", repercussions: "Les entreprises françaises se dotent enfin de patrons robustes capables de survivre à un assaut de trolls." },
+            { id: "eco-09", cat: "economie", titre: "Interdiction des monnaies de vent", postulat: "Les cryptomonnaies ne servent à rien si on ne peut pas les mordre pour s'assurer de leur reality physique.", action: "Abolition immédiate des bitcoins et autres monnaies numériques inutiles.", financement: "Saisie de tout le matériel informatique pour le forger en pointes de javelots.", repercussions: "Les spéculateurs retournent bêcher la terre ou fondre des métaux." },
+            { id: "eco-10", cat: "economie", titre: "Financement des mariages par la dote", postulat: "La mairie fait signer trop de parchemins pour unir deux personnes.", action: "Unification par grand banquet obligatoire. Les invités doivent amener au moins un porc rôti ou deux tonneaux de cervoise.", financement: "Pris en charge par les familles sous peine d'être chassées du village.", repercussions: "Fêtes grandioses et cohésion sociale renforcée par l'ivresse républicaine." },
+
+            // EDUCATION (10 mesures)
+            { id: "edu-01", cat: "education", titre: "Le Bac de la Forêt Noire", postulat: "Les examens sur table favorisent les tricheurs et les faibles physiques.", action: "Remplacement du baccalauréat par une épreuve de survie de trois jours, seul en forêt face à une meute de loups.", financement: "Aucun coût, l'Éducation Nationale réalise de grosses économies sur les copies et la surveillance.", repercussions: "Une jeunesse débrouillarde, capable de monter un camp de guerre en moins de deux heures." },
+            { id: "edu-02", cat: "education", titre: "Suppression de la géométrie inutile", postulat: "La seule ligne droite requise dans la vie est celle d'un javelot bien lancé.", action: "Suppression définitive des cours de géométrie et trigonométrie abstraite au collège.", financement: "Redirection des profs de maths vers des cours de forge d'armes de poing.", repercussions: "Baisse immédiate du décrochage scolaire, les élèves adorent frapper l'enclume." },
+            { id: "edu-03", cat: "education", titre: "L'apprentissage par le cuir", postulat: "Les enfants passent trop de temps devant des vitres lumineuses tactiles de lâches.", action: "Bannissement des tablettes à l'école. Remplacement par l'apprentissage obligatoire de la forge et du tannage dès l'âge de 6 ans.", financement: "Sponsorisé par les guildes de forgerons locaux en échange de main-d'œuvre gratuite.", repercussions: "Des enfants avec des biceps volumineux et des vêtements en peau cousus main." },
+            { id: "edu-04", cat: "education", titre: "Le Cartable de Rocher", postulat: "Nos enfants sont chétifs et se plaignent du poids de leurs livres.", action: "Obligation de remplir les cartables scolaires avec au moins 30 kg de cailloux pour fortifier les trapèzes dès le CP.", financement: "Roches gratuites récupérées lors du nettoyage des chemins de terre communaux.", repercussions: "Génération de guerriers au dos indestructible d'ici 2035." },
+            { id: "edu-05", cat: "education", titre: "Brevet de Lancer de Hache", postulat: "Savoir utiliser un compas ne sauvera jamais un adolescent face à un brigand de chemin.", action: "Le lancer de hache de précision devient la matière principale au Brevet des collèges.", financement: "Fourniture de cibles en bois brut par l'Office National des Forêts sauvages.", repercussions: "Les agressions dans la cour de récréation chutent par peur réciproque de représailles hachées." },
+            { id: "edu-06", cat: "education", titre: "Le Fléau Pédagogique", postulat: "Les bavardages incessants ralentissent le programme scolaire.", action: "Les enseignants sont autorisés à utiliser un fléau d'armes léger en cuir bouilli pour maintenir l'attention des élèves.", financement: "Fabrication artisanale des fléaux par la classe de travaux manuels.", repercussions: "Climat scolaire studieux et respectueux de l'autorité enseignante." },
+            { id: "edu-07", cat: "education", titre: "Mêlée générale Parcoursup", postulat: "Les algorithmes informatiques de tri créent de l'injustice pour nos jeunes.", action: "Remplacement de Parcoursup par une mêlée générale dans la boue. Les 500 derniers debout choisissent leur université.", financement: "Une grande bâche et de l'eau pour faire de la boue sur la pelouse du ministère de l'Éducation.", repercussions: "Orientation juste, transparente et validée par la robustesse physique." },
+            { id: "edu-08", cat: "education", titre: "L'heure du Regard Noir", postulat: "Les enfants n'ont plus d'affirmation personnelle.", action: "Remplacement des cours de philosophie par une heure de regard noir dans les yeux du voisin sans cligner des paupières.", financement: "Totalement gratuit, aucun matériel nécessaire.", repercussions: "Des citoyens sûrs d'eux, intimidants et incapables de se laisser manipuler par les publicités de parfum." },
+            { id: "edu-09", cat: "education", titre: "Cantine de Chasse Active", postulat: "Préparer des plateaux-repas industriels rend les enfants paresseux.", action: "Suppression des cantines scolaires. Chaque classe doit chasser son propre dindon sauvage, lâché chaque matin dans la cour.", financement: "Lâcher de volailles opéré par les fédérations de chasse locale.", repercussions: "Travail d'équipe, stratégie militaire et nourriture fraîche garantie." },
+            { id: "edu-10", cat: "education", titre: "Le Repos des Guerriers du Soir", postulat: "Donner des devoirs le soir prive les enfants du temps de banquet familial.", action: "Interdiction totale des devoirs du soir. Le crépuscule est réservé aux contes héroïques et à l'hydromel tiède.", financement: "Neutre.", repercussions: "Enfants heureux, bien reposés et prêts à piller le lendemain dès l'aube." },
+
+            // JUSTICE (10 mesures)
+            { id: "jus-01", cat: "justice", titre: "Code pénal à ligne unique", postulat: "Le code pénal moderne est trop épais, écrit trop petit et ne sert qu'à enrichir les avocats.", action: "Réduction du Code pénal à : 'Si tu voles on coupe, si tu tues on te découpe'.", financement: "Économie de milliards d'euros de frais d'avocats publics.", repercussions: "Taux de récidive ramené à 0% immédiatement." },
+            { id: "jus-02", cat: "justice", titre: "Duels Judiciaires à la télé", postulat: "Les jurés s'endorment pendant les plaidoiries de dix heures.", action: "Remplacement des cours d'assises par des Duels à mort en direct le dimanche soir à 20h.", financement: "Financé par les droits de diffusion télévisuelle et les pubs pour les fabricants d'épées.", repercussions: "Divertissement national de qualité et résolution rapide des litiges commerciaux." },
+            { id: "jus-03", cat: "justice", titre: "Le Nid de Frelons d'aveux", postulat: "La garde à vue moderne est trop confortable : café chaud et chaises de bureau.", action: "Suspension des suspects par les pieds au-dessus d'un nid de frelons géants pour accélérer les aveux.", financement: "Récupération naturelle des nids de frelons par les pompiers volontaires.", repercussions: "Aveux obtenus en moins de 15 secondes dans 100% des cas." },
+            { id: "jus-04", cat: "justice", titre: "Masse cloutée républicaine", postulat: "Les policiers ont peur d'intervenir car leurs sifflets ne terrifient personne.", action: "Remplacement des matraques et sifflets par des masses d'armes cloutées et des boucliers en peau de bête.", financement: "Forgeage local des masses d'armes.", repercussions: "Rétablissement instantané de l'ordre public dans les quartiers sensibles." },
+            { id: "jus-05", cat: "justice", titre: "Radars de Pierre", postulat: "Les radars automatiques distribuent des parchemins d'amendes futiles.", action: "Remplacement des radars par des trolls de pierre cachés au bord des routes qui balancent des rochers sur les excès de vitesse.", financement: "Recrutement de colosses de foire payés en cervoise.", repercussions: "Baisse drastique des excès de vitesse par peur d'écrasement physique." },
+            { id: "jus-06", cat: "justice", titre: "La Milice en slip de fourrure", postulat: "Les patrouilles de police vitre fermée ne rassurent pas la population.", action: "Patrouilles urbaines de guerriers en slip de fourrure équipés de haches de jet.", financement: "Économies substantielles sur l'achat d'uniformes en tissu coûteux.", repercussions: "Les agressions dans l'espace public disparaissent au profit du respect mutuel." },
+            { id: "jus-07", cat: "justice", titre: "Mines de soufre pour la dette", postulat: "Les détenus restent assis en prison à regarder la télévision sur le dos des travailleurs.", action: "Remplacement des peines de prison par des travaux forcés dans les mines de soufre pour éponger la dette publique.", financement: "Le soufre extrait est vendu aux forges nationales.", repercussions: "Désengorgement des prisons et accélération du remboursement de la dette." },
+            { id: "jus-08", cat: "justice", titre: "Bras de fer administratif", postulat: "L'outrage à agent déclenche des procédures en papier interminables.", action: "Tout outrage à un fonctionnaire est réglé sur place par un bras de fer éliminatoire immédiat.", financement: "Une table en chêne installée dans chaque commissariat.", repercussions: "Apaisement rapide des tensions verbales." },
+            { id: "jus-09", cat: "justice", titre: "Interdiction des avocats menteurs", postulat: "Les avocats parlent trop bien pour masquer la vérité des crimes commis.", action: "Interdiction de la profession d'avocat. Chaque accusé doit se défendre lui-même en hurlant son innocence en se frappant le torse.", financement: "Économie budgétaire nette pour le ministère de la Justice.", repercussions: "Seuls les innocents ayant une voix puissante sont acquittés." },
+            { id: "jus-10", cat: "justice", titre: "Vendetta du Mardi", postulat: "Les vengeances familiales désorganisent le trafic de semaine.", action: "Légalisation de la vendetta familiale, mais strictement limitée au troisième mardi du mois.", financement: "Neutre.", repercussions: "Moins d'embouteillages le reste du mois et régulation saine de la population locale." },
+
+            // ECOLOGIE (10 mesures)
+            { id: "eco-21", cat: "ecologie", titre: "Chars à pointes écologiques", postulat: "Les SUV électriques consomment trop de lithium et polluent nos sols pour l'extraction.", action: "Interdiction des voitures. Retour obligatoire aux chars à pointes tractés par des étalons enragés.", financement: "Élevages nationaux de chevaux nourris au foin bio.", repercussions: "Transports 100% écologiques et réduction de l'obésité grâce au pilotage de char debout." },
+            { id: "eco-22", cat: "ecologie", titre: "Totems de Vent sacrés", postulat: "Les éoliennes gâchent le paysage et détruisent les oiseaux.", action: "Démantèlement des éoliennes, remplacées par des totems sacrificiels en bois pour apaiser le Dieu du Vent.", financement: "Sculpture des totems par des artistes bûcherons locaux.", repercussions: "Restauration des paysages et retour du vent bienveillant par magie chamanique." },
+            { id: "eco-23", cat: "ecologie", titre: "Chauffage de conquête", postulat: "Le gaz de ville dépend de tuyaux importés de chez des dirigeants suspects.", action: "Obligation de chauffer sa hutte en brûlant exclusivement du bois mort ou les meubles de ses rivaux de quartier.", financement: "Aucun coût, favorise le nettoyage des forêts et le règlement des comptes de voisinage.", repercussions: "Indépendance énergétique complète de chaque quartier de France." },
+            { id: "eco-24", cat: "ecologie", titre: "Protection exclusive des loups", postulat: "La biodiversité s'effondre car l'homme a trop de confort et ne craint plus rien.", action: "Interdiction de chasser les animaux sauvages. La chasse est désormais réservée aux bêtes pour qu'elles se nourrissent de citadins.", financement: "Neutre.", repercussions: "Réapparition des ours dans le bois de Boulogne; les habitants réapprennent la vigilance active." },
+            { id: "eco-25", cat: "ecologie", titre: "Boeufs géants agraires", postulat: "Les tracteurs consomment du pétrole qui finance des guerres d'alliances lointaines.", action: "Remplacement des machines agricoles par des bœufs géants guidés par des paysans hurlant des incantations de fertilité.", financement: "Achat de taureaux reproducteurs par l'État.", repercussions: "Fin de la pollution agricole et réapparition de sols sains labourés en profondeur." },
+            { id: "eco-26", cat: "ecologie", titre: "Tri sélectif barbare", postulat: "Les poubelles de couleur jaune, bleue, verte et grise font perdre leur temps aux gens normaux.", action: "Simplification du tri : 'Si ça brûle, au feu. Si ça se mange, au chien. Le reste, jette-le chez ton voisin.'", financement: "Neutre.", repercussions: "Aucun camion-poubelle nécessaire, réduction de la consommation urbaine par crainte du retour de déchets par catapultes." },
+            { id: "eco-27", cat: "ecologie", titre: "Guerre contre le Soleil", postulat: "La canicule dessèche nos cultures et met les guerriers de mauvaise humeur.", action: "Obligation nationale de jeter des javelots vers le soleil pendant les canicules pour lui exprimer notre colère.", financement: "Fourniture de javelots recyclés par la forge municipale.", repercussions: "Le soleil finit par reculer derrière les nuages par peur du courroux de Kromag." },
+            { id: "eco-28", cat: "ecologie", titre: "Eau en crâne évidé", postulat: "Les bouteilles plastiques détruisent les océans.", action: "L'eau de source de montagne doit être bue exclusivement dans des crânes d'animaux ou d'ennemis évidés.", financement: "Récupération des crânes lors des banquets nationaux de chasse.", repercussions: "Disparition totale du plastique à usage unique dans tout le pays." },
+            { id: "eco-29", cat: "ecologie", titre: "Bannissement du plastique", postulat: "Le plastique ramollit le corps et ne peut pas servir à fabriquer une bonne armure.", action: "Interdiction du plastique sous toutes ses formes; retour obligatoire au cuir brut, à la corne ou au fer.", financement: "Mise au travail forcée des tanneurs nationaux.", repercussions: "Des objets durables qui durent 400 ans et qui sentent bon la bête." },
+            { id: "eco-30", cat: "ecologie", titre: "Paris Sauvage", postulat: "Paris est trop bétonné, ce qui insulte la nature sauvage.", action: "Plantation forcée de forêts de ronces géantes sur les boulevards parisiens pour y réintroduire des ours bruns.", financement: "Récupération des graines de ronces sauvages en forêt de Brocéliande.", repercussions: "Les parisiens réapprennent à courir vite pour aller travailler." },
+
+            // SANTE (10 mesures)
+            { id: "san-01", cat: "sante", titre: "Tatouage de vie Vitale", postulat: "La carte vitale en plastique vert se perd facilement dans les forêts.", action: "Remplacement de la carte vitale par un Tatouage de Résistance appliqué au fer rouge sur le bras dès la naissance.", financement: "Un forgeron de santé publique par canton équipé d'un brasero d'État.", repercussions: "Plus aucune fraude à la sécurité sociale possible; les enfants apprennent à supporter la douleur." },
+            { id: "san-02", cat: "sante", titre: "Anesthésie à la massue", postulat: "Les produits chimiques d'anesthésie rendent flasques les muscles des patients.", action: "Interdiction des produits chimiques. Remplacement par un grand coup de massue en chêne sur le crâne avant opération.", financement: "Une massue en chêne robuste fournie à chaque chirurgien de l'État.", repercussions: "Énormes économies pour la sécurité sociale et réveil rapide des patients vigoureux." },
+            { id: "san-03", cat: "sante", titre: "Surcharge esthétique interdite", postulat: "La chirurgie esthétique moderne modifie les visages pour ressembler à des poupées en plastique.", action: "Interdiction de la chirurgie esthétique, sauf pour ajouter des cicatrices de combat valorisantes ou des peintures de guerre.", financement: "Pris en charge par l'État si la cicatrice est obtenue face à un sanglier au moins.", repercussions: "Des visages honorables et effrayants qui inspirent le respect dans la rue." },
+            { id: "san-04", cat: "sante", titre: "Kinésithérapeutes écraseurs", postulat: "Les massages modernes de confort n'aident pas à muscler le corps.", action: "Les kinésithérapeutes seront remplacés par des écraseurs de côtes à mains nues formés à la dure.", financement: "Recrutement d'anciens lutteurs de foire reconvertis.", repercussions: "Un dos solide comme de l'acier pour tous les travailleurs manuels." },
+            { id: "san-05", cat: "sante", titre: "Pharmacie de bave de crapaud", postulat: "Les laboratoires pharmaceutiques vendent des pilules de couleur pour s'enrichir.", action: "Fermeture des pharmacies. Remplacement par des remèdes à base de bave de crapaud et de cataplasmes de boue des marais.", financement: "Récolte gratuite des crapauds dans les étangs publics par les chômeurs.", repercussions: "Renforcement des défenses immunitaires naturelles des citoyens survivants." },
+            { id: "san-06", cat: "sante", titre: "Le Congé Grotte", postulat: "Le certificat médical est une perte de temps pour les médecins surchargés.", action: "Instauration du congé de régénération : tu t'isoles 48h dans une grotte de montagne. Si tu survis, tu reviens bosser.", financement: "Aménagement de grottes de santé publique gratuites.", repercussions: "Chute spectaculaire des arrêts de travail abusifs de complaisance." },
+            { id: "san-07", cat: "sante", titre: "Urgences sélectives", postulat: "Les urgences des hôpitaux sont saturées par des gens qui ont juste un petit rhume.", action: "Priorité absolue aux blessures de flèches ou morsures de loups. Les enrhumés sont bannis du village pour l'hiver.", financement: "Un vigile équipé d'une fourche de garde à l'entrée des urgences.", repercussions: "Désengorgement immédiat des hôpitaux et fin de la sensiblerie nationale." },
+            { id: "san-08", cat: "sante", titre: "Dentiste Forgeron", postulat: "Les soins dentaires coûtent une fortune à l'État.", action: "La chirurgie dentaire est confiée exclusivement aux forgerons locaux équipés de tenailles rouillées.", financement: "Achat de dix pinces en fer forgé par canton.", repercussions: "Les Français apprennent à se laver les dents avec du charbon de bois pour éviter le forgeron." },
+            { id: "san-09", cat: "sante", titre: "Bannissement des psys", postulat: "Parler de ses problèmes à quelqu'un assis sur un canapé est une habitude de feignant.", action: "Interdiction de la psychologie. Si tu es triste, va hurler contre une falaise ou frappe un chêne jusqu'à la fin de la douleur.", financement: "Accès libre aux falaises nationales.", repercussions: "Esprit combatif restauré et augmentation de la robustesse des mains." },
+            { id: "san-10", cat: "sante", titre: "Prothèses d'honneur", postulat: "Les prothèses modernes en plastique blanc coûtent trop cher.", action: "Remplacement des prothèses par des crochets en fer forgé ou des jambes de bois cloutées artisanales faites par le menuisier.", financement: "Bois brut de chêne récupéré gratuitement.", repercussions: "Style de pirate féroce garanti pour tous nos blessés nationaux." },
+
+            // TRAVAIL (10 mesures)
+            { id: "tra-51", cat: "travail", titre: "Retraite des bras fatigués", postulat: "Fixer un âge légal de retraite est absurde car tout le monde n'a pas la même force.", action: "La retraite est fixée au moment précis où tes bras ne peuvent plus soulever une épée de combat de 15 kilos.", financement: "Vérification annuelle par test physique public devant le maire.", repercussions: "Les fainéants s'entraînent dur pour rester forts, tandis que les courageux partent au repos mérité." },
+            { id: "tra-52", cat: "travail", titre: "Abolition du télétravail virtuel", postulat: "Le télétravail permet de rester en pyjama de lâche devant un écran en mangeant des biscuits.", action: "Interdiction du travail sur écran à domicile. Obligation de travailler debout dans des ateliers en portant une armure de cuir.", financement: "Neutre (les entreprises fournissent le cuir de protection brute).", repercussions: "Disparition des douleurs lombaires et retour de la solidarité d'atelier physique." },
+            { id: "tra-53", cat: "travail", titre: "Évaluation du personnel au Gourdin", postulat: "Les entretiens annuels individuels de performance sont pleins d'hypocrisie managériale.", action: "Remplacement de l'entretien par un combat singulier à mains nues contre le DRH du service.", financement: "Une arène de sciure aménagée dans le hall d'entrée de chaque entreprise.", repercussions: "Les managers apprennent le respect de leurs ouvriers vigoureux." },
+            { id: "tra-54", cat: "travail", titre: "Siège de Grève", postulat: "Manifester dans la rue en distribuant des papiers de syndicats est stérile.", action: "Le droit de grève est maintenu, mais les grévistes doivent assiéger l'entreprise avec des béliers et des catapultes.", financement: "Achat des troncs d'arbres pour béliers par le comité d'entreprise.", repercussions: "Les conflits sociaux se règlent en moins de 48 heures par négociation musclée." },
+            { id: "tra-55", cat: "travail", titre: "Semaine de Pillage de 3 jours", postulat: "Travailler 5 jours par semaine détruit le temps requis pour festoyer et dormir.", action: "Semaine de travail réduite à 3 jours. Les 4 autres jours sont réservés à la chasse, au pillage et à l'hydromel.", financement: "Compensé par la productivité folle de guerriers heureux d'avoir du temps libre.", repercussions: "Bonheur national brut multiplié par dix." },
+            { id: "tra-56", cat: "travail", titre: "Le SMIC en gigot", postulat: "L'argent fiduciaire fluctue et ne remplit pas l'estomac des enfants.", action: "Remplacement du SMIC monétaire par la Ration de Viande et d'Hydromel par foyer.", financement: "Fourniture par les grands élevages nationaux.", repercussions: "Plus aucune famille n'a faim sous le règne de Kromag." },
+            { id: "tra-57", cat: "travail", titre: "Interdiction de PowerPoint", postulat: "Les réunions PowerPoint endorment les cerveaux avec des diagrammes colorés inutiles.", action: "Interdiction de présenter des projets sur écran. Tout projet doit être mimé avec des cris de guerre et des peintures.", financement: "Achat de craies de guerre de couleur.", repercussions: "Les réunions durent moins de 5 minutes et tout le monde comprend immédiatement l'objectif." },
+            { id: "tra-58", cat: "travail", titre: "Aigle de sang managérial", postulat: "Les harceleurs de bureau détruisent la santé mentale des ouvriers sans risquer d'épée.", action: "Le harcèlement managérial grave est puni du supplice de l'aigle de sang appliqué au manager fautif.", financement: "Exécuté bénévolement par l'ouvrier le plus fort de l'équipe.", repercussions: "Disparition immédiate du burn-out professionnel dans toute la nation." },
+            { id: "tra-59", cat: "travail", titre: "Reconversion des Influenceurs", postulat: "Les influenceurs numériques font des danses futiles devant des caméras au lieu d'aider la patrie.", action: "Envoi obligatoire des influenceurs défricher la Creuse sauvage à l'aide de haches de silex.", financement: "Fourniture de haches bas de gamme.", repercussions: "La Creuse devient un verger national magnifique et internet s'assainit naturellement." },
+            { id: "tra-60", cat: "travail", titre: "Clans de guerre syndicaux", postulat: "Les syndicats actuels signent des papiers de capitulation avec le patronat.", action: "Remplacement des syndicats par des clans de guerre jurés qui s'affrontent lors d'un grand tournoi annuel pour les budgets.", financement: "Arène de combat financée par le ministère du Travail.", repercussions: "Représentation ouvrière forte, respectée et redoutable." },
+
+            // LOGEMENT (10 mesures)
+            { id: "log-01", cat: "logement", titre: "Copro de Combat", postulat: "Les réunions de copropriété sont pleines de commérages sur la couleur du paillasson.", action: "Remplacement du syndic par une chefferie de tribu. Le résident le plus fort de l'immeuble dicte la loi.", financement: "Neutre, se règle dans la cour de l'immeuble.", repercussions: "Décisions rapides : la toiture est réparée dès que le chef dit qu'il a froid au crâne." },
+            { id: "log-02", cat: "logement", titre: "Permis de Construire Sauvage", postulat: "Demander l'autorisation d'urbanisme prend des années de parchemins tamponnés.", action: "Abolition des permis de construire. Tu bâtis ta hutte où tu veux. Si ton voisin râle, vous réglez ça à la hache.", financement: "Bois gratuit à couper soi-même.", repercussions: "Fin de la crise du logement en 3 semaines." },
+            { id: "log-03", cat: "logement", titre: "Plafonnement des huttes", postulat: "Les grands immeubles modernes masquent la vue du ciel et offensent nos ancêtres.", action: "Interdiction de construire des bâtiments plus hauts qu'un jet de javelot standard.", financement: "Neutre.", repercussions: "Villes à taille humaine et de l'air frais pour tout le monde." },
+            { id: "log-04", cat: "logement", titre: "L'ascenseur de corde", postulat: "Les ascenseurs électriques rendent les habitants de l'immeuble paresseux.", action: "Remplacement des ascenseurs par des cordes à nœuds suspendues pour monter aux étages.", financement: "Fourniture de cordes de chanvre robustes.", repercussions: "Des habitants agiles, musclés et capables d'échapper à un incendie sans panique." },
+            { id: "log-05", cat: "logement", titre: "Métro Galère", postulat: "Le métro parisien est électrique et sent mauvais à cause des machines.", action: "Remplacement du métro par des galères souterraines où les fraudeurs rament pour faire avancer le train.", financement: "Aucun coût électrique, propulsion 100% humaine.", repercussions: "Zéro fraude dans les transports et des rames qui avancent au rythme des tambours de guerre." },
+            { id: "log-06", cat: "logement", titre: "Bitume de boue", postulat: "Le goudron noir des routes détruit la douceur de la terre sauvage.", action: "Remplacement du bitume par de la terre battue et de la boue épaisse pour fortifier les articulations des guerriers.", financement: "Arrosage naturel par la pluie républicaine.", repercussions: "Des chevilles indestructibles pour toute la population active." },
+            { id: "log-07", cat: "logement", titre: "Digicode Wuuuurggh", postulat: "Les codes secrets électroniques s'oublient facilement après avoir bu de l'hydromel.", action: "Remplacement des digicodes par des mots de passe hurlés d'une voix rauque et gutturale.", financement: "Neutre.", repercussions: "Renforcement des cordes vocales et identification facile des intrus qui crient mal." },
+            { id: "log-08", cat: "logement", titre: "Douves de Banlieue", postulat: "Les cambrioleurs escaladent facilement les petites clôtures de jardin en plastique.", action: "Obligation d'aménager des douves de 4 mètres de large remplies de pieux acérés autour de chaque lotissement.", financement: "Creusé par les propriétaires eux-mêmes le week-end.", repercussions: "Sécurité totale des maisons et retour de l'esprit de château fort." },
+            { id: "log-09", cat: "logement", titre: "Double vitrage de bête", postulat: "Le verre double vitrage moderne isole trop les habitants des bruits de la nature sauvage.", action: "Remplacement du vitrage par des peaux de bêtes tendues garantissant une meilleure isolation spirituelle.", financement: "Peaux récupérées lors de la chasse communale.", repercussions: "Diminution de la consommation de chauffage et reconnexion auditive permanente avec le vent sauvage." },
+            { id: "log-10", cat: "logement", titre: "Propriété de Chasse", postulat: "Les agences immobilières prennent des commissions indécentes pour des maisons vides.", action: "Une maison vacante appartient légalement à celui qui massacre les fantômes ou monstres qui l'occupent.", financement: "Neutre.", repercussions: "Les jeunes acquièrent des châteaux médiévaux en éliminant les rats géants dedans." },
+
+            // CULTURE (10 mesures)
+            { id: "cul-01", cat: "culture", titre: "Destruction d'Internet", postulat: "Internet détruit les relations humaines réelles et rend les cerveaux mous avec des vidéos de chats.", action: "Destruction physique des serveurs. Remplacement des e-mails par des messagers nus courant à travers champs.", financement: "Rémunération des messagers en bière à l'arrivée.", repercussions: "Regain d'activité physique nationale et fin du harcèlement numérique." },
+            { id: "cul-02", cat: "culture", titre: "Tambours de Mammouth", postulat: "La musique moderne électronique fait des bruits de casseroles futiles.", action: "Interdiction des synthétiseurs. Seuls les tambours en peau de mammouth et les cornes d'os sont autorisés.", financement: "Fabrication de tambours géants par le ministère de la Culture.", repercussions: "Musique puissante qui fait trembler les vitres et réveille la ferveur guerrière." },
+            { id: "cul-03", cat: "culture", titre: "Place de la Baston numérique", postulat: "Les gens s'insultent lâchement derrière des pseudonymes sur les réseaux sociaux.", action: "Bannissement de Twitter/X. Création d'une fosse à insultes publique où l'on vient s'insulter face à face.", financement: "Une simple fosse creusée au milieu de chaque ville.", repercussions: "Libération de la colère saine et disparition de l'anonymat couard." },
+            { id: "cul-04", cat: "culture", titre: "TikTok de Forge", postulat: "Les jeunes passent leur temps à regarder des danses futiles en boucle.", action: "Nationalisation de TikTok pour ne diffuser que des vidéos de 15 secondes de forgerons frappant le fer rouge.", financement: "Pris en charge par la corporation des forges d'État.", repercussions: "Éducation technique involontaire et envie immédiate de forger des haches de guerre." },
+            { id: "cul-05", cat: "culture", titre: "Le Festival des Bardes ensanglantés", postulat: "Les artistes modernes se plaignent d'être incompris tout en recevant des aides de l'État.", action: "Remplacement du Festival de Cannes : le public a le droit de jeter des pavés sur les bardes qui chantent mal.", financement: "Pavés gratuits récoltés sur les chemins.", repercussions: "Émergence rapide d'artistes de grand talent ayant une excellente capacité d'esquive." },
+            { id: "cul-06", cat: "culture", titre: "Télévision sauvage 24h/24", postulat: "Les talk-shows parisiens sont pleins de gens bien coiffés qui parlent pour ne rien dire.", action: "Suppression de ces programmes. Diffusion exclusive de championnats de lancer de troncs d'arbre et combats d'ours.", financement: "Caméras fixes installées dans les forêts pyrénéennes.", repercussions: "Une population captivée par la force de la nature et le respect du règne animal." },
+            { id: "cul-07", cat: "culture", titre: "Orthographe brute phonétique", postulat: "La grammaire française est pleine d'exceptions conçues pour exclure ceux qui travaillent la terre.", action: "Simplification de l'orthographe : on écrit comme on crie (ex: 'KOMBAT MAZIF POUR LA FRANSSE').", financement: "Neutre.", repercussions: "Diminution immédiate de l'illettrisme et gain de temps lors de la gravure des lois sur la pierre." },
+            { id: "cul-08", cat: "culture", titre: "Art contemporain de Menhir", postulat: "L'art contemporain actuel consiste à peindre une toile en blanc pour la vendre un million d'euros.", action: "Interdiction de l'art abstrait. Remplacement par des alignements de menhirs bruts peints avec le sang du banquet.", financement: "Roches extraites des carrières bretonnes.", repercussions: "Un art solide, compréhensible par tous et résistant aux intempéries pendant 5000 ans." },
+            { id: "cul-09", cat: "culture", titre: "Le téléphone à corne", postulat: "Les smartphones rendent les gens distraits dans la rue au lieu de surveiller les brigands.", action: "Bannissement des téléphones portables. Retour du pot de yaourt avec ficelle, mais sculpté dans de la corne.", financement: "Corne de bélier fournie par les bergers nationaux.", repercussions: "Les gens se parlent enfin de près et surveillent les alentours." },
+            { id: "cul-10", cat: "culture", titre: "Le Banquet de Menhirs", postulat: "Les musées sont trop silencieux, on n'a même pas le droit de manger dedans.", action: "Bascule de tous les musées nationaux en grandes salles de banquet où l'on mange des sangliers rôtis sur les ruines.", financement: "Billetterie couplée avec la viande fraîche.", repercussions: "Fréquentation des musées en hausse de 400% chez les guerriers affamés." },
+
+            // DIPLOMATIE (10 mesures)
+            { id: "dip-01", cat: "diplomatie", titre: "Sortie unilatérale de l'UE à la masse", postulat: "Les traités européens font trop de pages à lire pour un seul homme.", action: "Sortie immédiate de l'UE en détruisant physiquement à coups de masse les barrières douanières.", financement: "Une équipe de 50 colosses équipés de masses de forge.", repercussions: "Souveraineté territoriale totale retrouvée en moins d'une après-midi." },
+            { id: "dip-02", cat: "diplomatie", titre: "Émissaires de la Terreur", postulat: "Les ambassadeurs portent des costumes serrés et parlent avec trop de politesse hypocrite.", action: "Remplacement des ambassadeurs par des Émissaires arborant des colliers d'oreilles d'ennemis vaincus.", financement: "Fourniture de colliers par les forces spéciales de Kromag.", repercussions: "Respect immédiat de la parole de la France lors de toutes les négociations internationales." },
+            { id: "dip-03", cat: "diplomatie", titre: "G7 du Banquet Suprême", postulat: "Les réunions du G7 durent des jours pour signer des parchemins que personne ne respecte.", action: "Kromag impose ses décisions géopolitiques en buvant plus d'hydromel que les 6 autres dirigeants réunis.", financement: "Dix tonneaux de cervoise d'honneur.", repercussions: "La France dicte sa loi à l'international grâce à la résistance hépatique de son chef." },
+            { id: "dip-04", cat: "diplomatie", titre: "Traités gravés sur la peau", postulat: "Les traités internationaux en papier se déchirent ou s'oublient facilement.", action: "Obligation de graver les traités au poignard directement sur le torse des diplomates adverses.", financement: "Un bon poignard en acier de Solingen.", repercussions: "Plus aucun pays n'ose violer la parole donnée à la France sous peine de rouvrir la cicatrice." },
+            { id: "dip-05", cat: "diplomatie", titre: "Mêlée générale de l'ONU", postulat: "L'ONU passe des mois à voter des résolutions stériles face aux conflits armés.", action: "Les conflits géopolitiques mondiaux se règlent par une mêlée générale de 20 minutes entre les chefs d'État.", financement: "Aménagement d'une arène de boue au siège de l'ONU à New York.", repercussions: "Paix mondiale rapide garantie par l'arbitrage des muscles de Kromag." },
+            { id: "dip-06", cat: "diplomatie", titre: "Malédiction chamanique nationale", postulat: "Les pays rivaux critiquent parfois la France sans que l'on puisse répliquer de suite.", action: "Tout pays hostile sera maudit en direct lors du JT de 20h par nos chamans nationaux à l'aide d'entrailles de dindon.", financement: "Dindons sacrificiels fournis par le ministère de l'Agriculture Sauvage.", repercussions: "Les dirigeants étrangers y réfléchissent à deux fois avant d'embêter la France de peur d'attraper des verrues géantes." },
+            { id: "dip-07", cat: "diplomatie", titre: "Espace Schengen de ronces", postulat: "Les frontières de la France sont trop faciles à traverser par les marchands de contrefaçons.", action: "Remplacement des postes de douane par un mur de ronces géantes de 5 mètres de haut rempli de crocodiles sacrés.", financement: "Plantations de graines sauvages et importation de sauriens affamés.", repercussions: "Contrôle efficace des frontières terrestres et maritimes." },
+            { id: "dip-08", cat: "diplomatie", titre: "Réparations de la Guerre des Gaules", postulat: "Jules César nous a volé des richesses immenses il y a 2000 ans sans jamais rembourser.", action: "Demande officielle à l'Italie de nous livrer 500 000 barils de vin de Toscane sous huitaine à titre de réparation historique.", financement: "Saisie de drakkars si refus d'obtempérer.", repercussions: "Caves de l'Élysée remplies pour les 50 prochaines années de banquets." },
+            { id: "dip-09", cat: "diplomatie", titre: "Visa Ours Brun", postulat: "Les tampons sur les passeports papier sont faciles à falsifier par les faussaires.", action: "Le visa d'entrée en France ne s'obtient qu'après avoir terrassé un ours brun au poste de frontière de Maubeuge.", financement: "Entretien de la flotte d'ours frontaliers.", repercussions: "Seuls les étrangers les plus robustes et respectables s'installent sur notre territoire." },
+            { id: "dip-10", cat: "diplomatie", titre: "Raid sur les paradis fiscaux", postulat: "Les riches exilent leur or au Luxembourg ou aux îles Caïmans pour ne pas participer aux banquets.", action: "Envoi immédiat de la flotte de drakkars présidentiels piller les banques de ces pays de voleurs.", financement: "S'autofinance au premier coffre-fort enfoncé au bélier.", repercussions: "Trésor public français débordant d'or fin et fin définitive de la fuite des capitaux." },
+
+            // INSTITUTIONS (10 mesures)
+            { id: "ins-91", cat: "institutions", titre: "Assemblée des Gladiateurs", postulat: "Les députés passent leur temps à crier dans l'hémicycle au lieu de se battre honnêtement.", action: "Remplacement de l'Assemblée Nationale par une arène de combat. Les lois sont votées à la survie des députés.", financement: "Suppression des indemnités parlementaires futiles pour financer la sciure de l'arène.", repercussions: "Des lois votées en moins de 10 minutes et une réduction drastique du nombre de politiciens professionnels." },
+            { id: "ins-92", cat: "institutions", titre: "Le Premier Gourdin", postulat: "Le Premier Ministre moderne passe son temps à signer des décrets dans un bureau feutré.", action: "Le Premier Ministre portera le titre de 'Premier Gourdin' et exécutera physiquement les décisions de Kromag.", financement: "Fourniture d'un gourdin de chêne clouté de 12 kg.", repercussions: "Exécution immédiate des ordres présidentiels sans recours administratif possible." },
+            { id: "ins-93", cat: "institutions", titre: "Formulaires de Pierre Cerfa", postulat: "Les parchemins administratifs Cerfa polluent nos fôrets et coupent nos arbres.", action: "Toute demande d'aide ou papier officiel doit être gravée sur une stèle de pierre de 20 kg et jetée au guichet.", financement: "Les usagers doivent apporter leur propre pierre extraite de leur jardin.", repercussions: "Baisse de 98% des demandes d'aides administratives administratives par fatigue musculaire." },
+            { id: "ins-94", cat: "institutions", titre: "La Constitution des 3 Règles", postulat: "La constitution moderne est trop complexe pour être retenue par un guerrier après trois chopes.", action: "Réduction de la constitution à : 'Le Chef commande. Tu obéis. Si tu n'es pas d'accord, viens te battre.'", financement: "Neutre.", repercussions: "Une nation unie, stable et respectueuse de la chaîne de commandement physique." },
+            { id: "ins-95", cat: "institutions", titre: "Les Sorcières Constitutionnelles", postulat: "Les membres du Conseil Constitutionnel sont trop vieux et ne connaissent rien à la magie sauvage.", action: "Remplacement des Sages par trois sorcières aveugles qui lisent la conformité des lois dans des entrailles de dindon.", financement: "Rémunération des sorcières en champignons des bois séchés.", repercussions: "Des lois validées par les forces spirituelles de la nature." },
+            { id: "ins-96", cat: "institutions", titre: "Prélèvement d'impôts par Raid", postulat: "Le prélèvement à la source informatique empêche de voir la détresse de l'adversaire fiscal.", action: "L'impôt est prélevé par des raids surprises de fonctionnaires en armure de cuir le samedi matin à l'aube.", financement: "Les fonctionnaires se rémunèrent sur les restes du garde-manger de l'administré.", repercussions: "Les citoyens apprennent à fortifier efficacement leur hutte pour échapper à l'impôt." },
+            { id: "ins-97", cat: "institutions", titre: "Le Héraut public du JT", postulat: "Les présentateurs de télévision parlent avec une voix de lâche pour annoncer des catastrophes.", action: "Remplacement du JT de 20h par un héraut public géant qui hurle les décrets sur les marchés en frappant son bouclier.", financement: "Une place de marché libre dans chaque commune.", repercussions: "Une population informée de manière claire, sonore et sans publicité intermédiaire." },
+            { id: "ins-98", cat: "institutions", titre: "Le Fort de la Gagne", postulat: "L'Élysée est un palais trop luxueux, plein de tapis en velours qui ramollissent les pieds du chef.", action: "Fortification de l'Élysée à l'aide de pieux en bois acérés, têtes d'ennemis sur des piques et rebaptisé 'Fort de la Gagne'.", financement: "Coupe de bois d'œuvre en forêt domaniale.", repercussions: "Un centre de pouvoir terrifiant qui dissuade les manifestants et les diplomates frileux." },
+            { id: "ins-99", cat: "institutions", titre: "Lutte des Fonctionnaires", postulat: "Le statut de la fonction publique protège les paresseux qui refusent de servir le peuple.", action: "Chaque fonctionnaire doit prouver sa valeur en remportant au moins un combat de lutte annuel pour garder son poste.", financement: "Une fosse de sciure installée dans chaque préfecture.", repercussions: "Une administration publique dynamique, musclée et d'une efficacité redoutable." },
+            { id: "ins-100", cat: "institutions", titre: "Le Vote du Pilori", postulat: "L'abstention électorale est une trahison de lâche qui montre le désintérêt pour le chef.", action: "Le vote est obligatoire. Tout abstentionniste est attaché au pilori du village pendant une semaine sous les jets de fumier de chèvre.", financement: "Fumier fourni généreusement par les éleveurs de chèvres du canton.", repercussions: "Taux de participation de 100% à toutes les élections de Kromag." }
+        ];
+
+        // NAVIGATION DU SITE (Single Page App)
+        function showPage(pageId) {
+            ['accueil', 'programme', 'candidat', 'contact'].forEach(id => {
+                document.getElementById(`view-${id}`).classList.add('hidden');
+                document.getElementById(`nav-${id}`).className = "px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20";
+            });
+
+            document.getElementById(`view-${pageId}`).classList.remove('hidden');
+            
+            const activeBtn = document.getElementById(`nav-${pageId}`);
+            if (activeBtn) {
+                activeBtn.className = "px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition bg-barbare-blood text-white shadow-md border border-barbare-gold/30";
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // REDIRECTION VERS UNE THÉMATIQUE DU PROGRAMME
+        function naviguerVersTheme(catKey) {
+            showPage('programme');
+            
+            setTimeout(() => {
+                const element = document.getElementById(`cat-block-${catKey}`);
+                if (element) {
+                    const yOffset = -90;
+                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                    showToast(`📍 Sentier de l'Acier : ${categories[catKey].title}`);
+                }
+            }, 150);
+        }
+
+        // INITIALISATION DE LA LISTE DÉROULANTE (DROPDOWN NAVIGATION)
+        function initDropdownMenu() {
+            const container = document.getElementById('dropdown-menu');
+            container.innerHTML = "";
+
+            Object.entries(categories).forEach(([key, value]) => {
+                const item = document.createElement('a');
+                item.href = "#";
+                item.className = "flex items-center gap-3 px-4 py-2.5 text-xs font-bold text-barbare-ash hover:bg-barbare-blood/30 hover:text-barbare-gold transition-all duration-150 border-b border-barbare-blood/10 last:border-b-0 font-epic";
+                
+                item.onclick = (e) => {
+                    e.preventDefault();
+                    naviguerVersTheme(key);
+                };
+
+                item.innerHTML = `
+                    <span class="text-lg">${value.icon}</span>
+                    <span class="truncate">${value.title}</span>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // GENERATEUR DE LA ROULETTE BARBARE
+        let derniereMesureTiree = null;
+
+        function tirerMesureBarbare() {
+            const index = Math.floor(Math.random() * programme.length);
+            const mesure = programme[index];
+            derniereMesureTiree = mesure;
+
+            const placeholder = document.getElementById('mesure-placeholder');
+            const resultat = document.getElementById('mesure-resultat');
+
+            resultat.classList.add('hidden');
+            placeholder.classList.add('hidden');
+
+            const catInfo = categories[mesure.cat];
+            document.getElementById('res-icone').textContent = catInfo.icon;
+            document.getElementById('res-categorie').textContent = catInfo.title;
+            document.getElementById('res-id').textContent = `CODE: ${mesure.id.toUpperCase()}`;
+            document.getElementById('res-titre').textContent = mesure.titre;
+            document.getElementById('res-postulat').textContent = mesure.postulat;
+            document.getElementById('res-action').textContent = mesure.action;
+            document.getElementById('res-financement').textContent = mesure.financement;
+            document.getElementById('res-repercussions').textContent = mesure.repercussions;
+
+            setTimeout(() => {
+                resultat.classList.remove('hidden');
+                showToast("⚡ L'Oracle a parlé avec force et honneur !");
+            }, 150);
+        }
+
+        // COPIER DANS LE PRESSE-PAPIER
+        function copierMesure() {
+            if (!derniereMesureTiree) return;
+            const text = `Mesure Barbare de Kromag 2027 : "${derniereMesureTiree.titre}"\nAction féroce : ${derniereMesureTiree.action}\nAssez de blabla, place aux baffes !`;
+            
+            // Méthode de secours compatible iframe
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            showToast("📋 Gravé dans ton presse-papier !");
+        }
+
+        // PARTAGER SUR LES RÉSEAUX
+        function partagerMesure(reseau) {
+            if (!derniereMesureTiree) return;
+            const text = encodeURIComponent(`Kromag 2027 va sauver la France ! Mesure : "${derniereMesureTiree.titre}" : ${derniereMesureTiree.action}`);
+            const url = encodeURIComponent(window.location.href);
+
+            let shareUrl = "";
+            if (reseau === 'twitter') {
+                shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            }
+
+            if (shareUrl) {
+                window.open(shareUrl, '_blank');
+            }
+        }
+
+        // CRÉATEUR DE NOTIFICATIONS DE LA CORNE
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = "bg-barbare-darksteel text-barbare-ash text-xs font-bold px-4 py-3 rounded-xl shadow-2xl border-2 border-barbare-blood flex items-center gap-2 animate-bounce z-50 font-epic";
+            toast.innerHTML = `
+                <span>🪓</span>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // INITIALISATION DES THÉMATIQUES SUR L'ACCUEIL
+        function initThemesAccueil() {
+            const grid = document.getElementById('themes-grid');
+            grid.innerHTML = "";
+
+            Object.entries(categories).forEach(([key, value]) => {
+                const count = programme.filter(m => m.cat === key).length;
+                const card = document.createElement('div');
+                card.className = "bg-gradient-to-br from-stone-900 to-black p-6 rounded-2xl border-2 border-barbare-blood/20 shadow-lg hover:border-barbare-gold/50 transition duration-300 flex flex-col justify-between space-y-4 cursor-pointer group transform hover:-translate-y-1";
+                card.onclick = () => {
+                    naviguerVersTheme(key);
+                };
+
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="text-4xl filter grayscale group-hover:grayscale-0 transition duration-200">${value.icon}</div>
+                        <h3 class="font-epic font-black text-lg text-barbare-gold group-hover:text-yellow-400 transition">${value.title}</h3>
+                    </div>
+                    <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-barbare-ash/60 group-hover:text-barbare-ash transition">
+                        <span>${count} commandements</span>
+                        <span>Prendre d'assaut →</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // INITIALISATION DU PROGRAMME COMPLET (100 MESURES)
+        function initProgrammeComplet() {
+            const listContainer = document.getElementById('programme-list');
+            listContainer.innerHTML = "";
+
+            Object.entries(categories).forEach(([catKey, catVal]) => {
+                const mesuresTheme = programme.filter(m => m.cat === catKey);
+
+                const section = document.createElement('div');
+                section.id = `cat-block-${catKey}`;
+                section.className = "space-y-4 pt-4";
+
+                section.innerHTML = `
+                    <div class="flex items-center gap-3 border-b-2 border-barbare-blood/30 pb-3">
+                        <span class="text-4xl bg-barbare-blood/10 p-2 rounded-xl">${catVal.icon}</span>
+                        <div>
+                            <h2 class="font-epic font-black text-2xl text-barbare-gold">${catVal.title}</h2>
+                            <span class="text-xs font-bold uppercase text-barbare-ash/70">${mesuresTheme.length} mesures absolues d'acier</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="mesures-container-${catKey}">
+                    </div>
+                `;
+
+                listContainer.appendChild(section);
+
+                const container = document.getElementById(`mesures-container-${catKey}`);
+                mesuresTheme.forEach(m => {
+                    const item = document.createElement('div');
+                    item.id = `mesure-item-${m.id}`;
+                    item.className = "bg-stone-900/60 rounded-xl p-5 border border-barbare-blood/20 shadow-lg hover:border-barbare-blood/50 transition space-y-3";
+                    item.innerHTML = `
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <span class="inline-block bg-barbare-blood/30 text-barbare-gold font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-md mb-1 font-epic border border-barbare-blood/40">${m.id.toUpperCase()}</span>
+                                <h3 class="font-epic font-black text-lg text-barbare-ash">${m.titre}</h3>
+                            </div>
+                            <button onclick="copierMesureDirecte('${m.id}')" class="p-2 rounded-lg hover:bg-white/5 text-barbare-gold hover:text-yellow-400 transition" title="Graver la mesure">
+                                ⚔️
+                            </button>
+                        </div>
+                        <p class="text-sm text-barbare-sand leading-relaxed"><strong class="text-red-500 font-epic">Problème d'aujourd'hui :</strong> ${m.postulat}</p>
+                        <p class="text-sm text-barbare-sand leading-relaxed"><strong class="text-barbare-gold font-epic">La Hache de Kromag :</strong> ${m.action}</p>
+                        
+                        <div class="hidden pt-3 border-t border-barbare-blood/10 grid grid-cols-1 gap-3 text-xs" id="detail-${m.id}">
+                            <div class="bg-barbare-stone p-4 rounded-lg border border-barbare-bronze/30 text-white"><strong class="text-barbare-gold block mb-1 font-epic">Financement Sauvage :</strong> ${m.financement}</div>
+                            <div class="bg-barbare-stone p-4 rounded-lg border border-emerald-800/30 text-white"><strong class="text-emerald-500 block mb-1 font-epic">Après la baffe :</strong> ${m.repercussions}</div>
+                        </div>
+
+                        <div class="text-center pt-2">
+                            <button onclick="toggleDetail('${m.id}')" id="btn-toggle-${m.id}" class="text-xs font-bold text-barbare-gold hover:underline font-epic">Consulter le plan d'assaut 🔍</button>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                });
+            });
+        }
+
+        function toggleDetail(id) {
+            const block = document.getElementById(`detail-${id}`);
+            const btn = document.getElementById(`btn-toggle-${id}`);
+            if (block.classList.contains('hidden')) {
+                block.classList.remove('hidden');
+                btn.textContent = "Replier le parchemin 🔺";
+            } else {
+                block.classList.add('hidden');
+                btn.textContent = "Consulter le plan d'assaut 🔍";
+            }
+        }
+
+        function copierMesureDirecte(id) {
+            const m = programme.find(item => item.id === id);
+            if (!m) return;
+            const text = `Proposition de Kromag 2027 [${m.id.toUpperCase()}] : "${m.titre}"\nBaffe de Kromag : ${m.action}`;
+            
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            showToast("📋 Proposition gravée dans ton crâne !");
+        }
+
+        // RECHERCHE EN TEMPS RÉEL DANS LE GRIMOIRE
+        function filtrerProgramme() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+
+            programme.forEach(m => {
+                const element = document.getElementById(`mesure-item-${m.id}`);
+                const match = m.titre.toLowerCase().includes(query) || 
+                              m.postulat.toLowerCase().includes(query) || 
+                              m.action.toLowerCase().includes(query) ||
+                              m.id.toLowerCase().includes(query);
+
+                if (match) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            });
+
+            // Masquer les catégories vides
+            Object.keys(categories).forEach(catKey => {
+                const container = document.getElementById(`cat-block-${catKey}`);
+                const visibleMesures = container.querySelectorAll(`[id^="mesure-item-"]:not(.hidden)`);
+                if (visibleMesures.length === 0) {
+                    container.classList.add('hidden');
+                } else {
+                    container.classList.remove('hidden');
+                }
+            });
+        }
+
+        // FORMULAIRE DE REJOINDRE LA HORDE (CONTACT)
+        async function submitContact(event) {
+            event.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            const originalBtnText = btn.innerHTML;
+            const checked = document.getElementById('voter-checkbox').checked;
+            const container = document.getElementById('toast-container');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span>⚔️ GRAVURE DU SERMENT DANS LA PIERRE...</span>`;
+
+            setTimeout(() => {
+                const alertBox = document.createElement('div');
+                alertBox.className = "bg-red-800 text-white text-sm font-semibold p-4 rounded-xl shadow-2xl max-w-sm flex flex-col gap-2 border-2 border-barbare-gold animate-bounce z-50 font-epic";
+                
+                let successMsg = "Tu es désormais un soldat officiel de la Horde de Kromag ! Prépare ta hache.";
+                if (checked) {
+                    successMsg += " Ton serment par le sang a été enregistré par les chamans ! En route pour l'Élysée ! 🔥";
+                }
+
+                alertBox.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl">✅</span>
+                        <span>SERMENT PRÊTÉ !</span>
+                    </div>
+                    <p class="text-xs text-barbare-sand">${successMsg}</p>
+                `;
+                container.appendChild(alertBox);
+
+                setTimeout(() => alertBox.remove(), 7000);
+                
+                document.getElementById('contact-form').reset();
+                btn.disabled = false;
+                btn.innerHTML = originalBtnText;
+            }, 1500);
+        }
+
+        // INITIALISATION DES PROVINCES DE FRANCE (101 DEPARTEMENTS ET DOM-TOM BARBARES)
+        function initProvincesGaule() {
+            const select = document.getElementById('departement-select');
+            if (!select) return;
+
+            const depts = [
+                { code: "01", nom: "Ain (Plaines Brumeuses du Nord)" },
+                { code: "02", nom: "Aisne (Horde des Forêts Secrètes)" },
+                { code: "03", nom: "Allier (Clan de la Rivière d'Acier)" },
+                { code: "04", nom: "Alpes-de-Haute-Provence (Seigneurs des Rocs Enflammés)" },
+                { code: "05", nom: "Hautes-Alpes (Gardiens des Glaciers Éternels)" },
+                { code: "06", nom: "Alpes-Maritimes (Tribu de la Côte d'Épines)" },
+                { code: "07", nom: "Ardèche (Peuple des Cavernes de Sang)" },
+                { code: "08", nom: "Ardennes (Sangliers de l'Ombre Sauvage)" },
+                { code: "09", nom: "Ariège (Chasseurs d'Ours des Pyrénées)" },
+                { code: "10", nom: "Aube (Horde de la Cendre Blanche)" },
+                { code: "11", nom: "Aude (Faucons du Vent d'Autan)" },
+                { code: "12", nom: "Aveyron (Clan des Rocs de Roquefort Brut)" },
+                { code: "13", nom: "Bouches-du-Rhône (Tribu du Phare d'Acier)" },
+                { code: "14", nom: "Calvados (Flotte d'Assaut Maritime de Kromag)" },
+                { code: "15", nom: "Cantal (Géants du Fromage Fort)" },
+                { code: "16", nom: "Charente (Distillateurs du Feu Liquide)" },
+                { code: "17", nom: "Charente-Maritime (Pilleurs de l'Atlantique)" },
+                { code: "18", nom: "Cher (Clan du Centre de la Terre)" },
+                { code: "19", nom: "Corrèze (Maquisards de la Fougère Noire)" },
+                { code: "2A", nom: "Corse-du-Sud (Maquisards du Sang Chaud)" },
+                { code: "2B", nom: "Haute-Corse (Chasseurs des Crêtes Rocheuses)" },
+                { code: "21", nom: "Côte-d'Or (Seigneurs des Vignes de Sang)" },
+                { code: "22", nom: "Côtes-d'Armor (Pirates de l'Armorique de Pierre)" },
+                { code: "23", nom: "Creuse (Zone d'Exil des Influenceurs)" },
+                { code: "24", nom: "Dordogne (Peuple des Cavernes Ancestrales)" },
+                { code: "25", nom: "Doubs (Horlogers du Gourdin)" },
+                { code: "26", nom: "Drôme (Horde de la Lavande d'Acier)" },
+                { code: "27", nom: "Eure (Éclaireurs de la Seine Sauvage)" },
+                { code: "28", nom: "Eure-et-Loir (Moissonneurs de la Plaine Géante)" },
+                { code: "29", nom: "Finistère (Armorique Libre du Bout du Monde)" },
+                { code: "30", nom: "Gard (Gardiens du Colisée de Sang)" },
+                { code: "31", nom: "Haute-Garonne (Faucons d'Occitanie Royale)" },
+                { code: "32", nom: "Gers (Seigneurs du Canard de Combat)" },
+                { code: "33", nom: "Gironde (Flibustiers du Vin d'Estuaire)" },
+                { code: "34", nom: "Hérault (Dompteurs de la Vigne Sauvage)" },
+                { code: "35", nom: "Ille-et-Vilaine (Brocéliande Sauvage)" },
+                { code: "36", nom: "Indre (Tribu des Marais Sombres)" },
+                { code: "37", nom: "Indre-et-Loire (Seigneurs des Châteaux Forts)" },
+                { code: "38", nom: "Isère (Colosses des Cimes de Glisse)" },
+                { code: "39", nom: "Jura (Forgerons du Comté Éternel)" },
+                { code: "40", nom: "Landes (Cavaliers des Pins Enragés)" },
+                { code: "41", nom: "Loir-et-Cher (Gardiens du Val de Loire)" },
+                { code: "42", nom: "Loire (Mineurs de la Terre Noire)" },
+                { code: "43", nom: "Haute-Loire (Peuple du Velay Volcanique)" },
+                { code: "44", nom: "Loire-Atlantique (Ducs des Marais Salants)" },
+                { code: "45", nom: "Loiret (Protecteurs de la Cité Rebelle)" },
+                { code: "46", nom: "Lot (Seigneurs des Falaises Sombres)" },
+                { code: "47", nom: "Lot-et-Garonne (Horde des Prunes Explosives)" },
+                { code: "48", nom: "Lozère (Loups du Gévaudan Affamés)" },
+                { code: "49", nom: "Maine-et-Loire (Cavaliers du Val d'Anjou)" },
+                { code: "50", nom: "Manche (Sentinelles de l'Archange)" },
+                { code: "51", nom: "Marne (Sabreurs du Nectar Pétillant)" },
+                { code: "52", nom: "Haute-Marne (Maîtres de la Forge Noire)" },
+                { code: "53", nom: "Mayenne (Tribu des Plaines Perdues)" },
+                { code: "54", nom: "Meurthe-et-Moselle (Mineurs d'Acier Lorrain)" },
+                { code: "55", nom: "Meuse (Survivants des Plaines de Fer)" },
+                { code: "56", nom: "Morbihan (Druides des Alignements de Menhirs)" },
+                { code: "57", nom: "Moselle (Gardiens de la Frontière Brumeuse)" },
+                { code: "58", nom: "Nièvre (Flotteurs de Bois du Morvan)" },
+                { code: "59", nom: "Nord (Lions des Flandres de Fer)" },
+                { code: "60", nom: "Oise (Chasseurs de la Forêt de Guerre)" },
+                { code: "61", nom: "Orne (Éleveurs de Destriers Lourds)" },
+                { code: "62", nom: "Pas-de-Calais (Berserkers du Cap Écumeux)" },
+                { code: "63", nom: "Puy-de-Dôme (Sorciers d'Auvergne Volcanique)" },
+                { code: "64", nom: "Pyrénées-Atlantiques (Lutteurs Basco-Béarnais)" },
+                { code: "65", nom: "Hautes-Pyrénées (Aigles des Roches Célestes)" },
+                { code: "66", nom: "Pyrénées-Orientales (Lions du Vent de Tramontane)" },
+                { code: "67", nom: "Bas-Rhin (Clan de la Cathédrale de Pierre)" },
+                { code: "68", nom: "Haut-Rhin (Forgerons du Rhin du Sud)" },
+                { code: "69", nom: "Rhône (Gones de Combat Lyonnais)" },
+                { code: "70", nom: "Haute-Saône (Bûcherons de la Motte Grise)" },
+                { code: "71", nom: "Saône-et-Loire (Moines Forgerons d'Autun)" },
+                { code: "72", nom: "Sarthe (Pilotes de Chars Rapides)" },
+                { code: "73", nom: "Savoie (Diables Rouges de Maurienne)" },
+                { code: "74", nom: "Haute-Savoie (Gardiens du Mont Blanc)" },
+                { code: "75", nom: "Paris (Future Forêt de Ronces Sauvages)" },
+                { code: "76", nom: "Seine-Maritime (Vikings des Falaises d'Albâtre)" },
+                { code: "77", nom: "Seine-et-Marne (Moissonneurs de la Brie de Fer)" },
+                { code: "78", nom: "Yvelines (Gardiens des Chasses de Versailles)" },
+                { code: "79", nom: "Deux-Sèvres (Sorciers du Marais Vert)" },
+                { code: "80", nom: "Somme (Horde de la Baie du Nord)" },
+                { code: "81", nom: "Tarn (Mineurs du Verre Lumineux)" },
+                { code: "82", nom: "Tarn-et-Garonne (Chasseurs d'Ours d'Aquitaine)" },
+                { code: "83", nom: "Var (Seigneurs des Forts de Toulon)" },
+                { code: "84", nom: "Vaucluse (Gardiens du Ventoux Tourbillonnant)" },
+                { code: "85", nom: "Vendée (Tribu du Bocage Rebelle)" },
+                { code: "86", nom: "Vienne (Clan du Futuro-Gourdin)" },
+                { code: "87", nom: "Haute-Vienne (Limousins d'Acier d'Émail)" },
+                { code: "88", nom: "Vosges (Tribu de la Forêt de Sapins Noirs)" },
+                { code: "89", nom: "Yonne (Buveurs d'Or Blanc)" },
+                { code: "90", nom: "Territoire de Belfort (Lions d'Acier de l'Est)" },
+                { code: "91", nom: "Essonne (Horde de la Banlieue Sauvage)" },
+                { code: "92", nom: "Hauts-de-Seine (Saccageurs des Tours de Verre)" },
+                { code: "93", nom: "Seine-Saint-Denis (Lutteurs du Stade Sacré)" },
+                { code: "94", nom: "Val-de-Marne (Équipage de la Rivière Brumeuse)" },
+                { code: "95", nom: "Val-d'Oise (Gardiens des Plaines du Vexin)" },
+                { code: "971", nom: "Guadeloupe (Flibustiers de la Grande Soufrière)" },
+                { code: "972", nom: "Martinique (Guerriers de la Pelée Flamboyante)" },
+                { code: "973", nom: "Guyane (Chasseurs du Jaguar Royal)" },
+                { code: "974", nom: "La Réunion (Laveurs du Piton de la Fournaise)" },
+                { code: "975", nom: "Saint-Pierre-et-Miquelon (Tribu des Brumes de Terre-Neuve)" },
+                { code: "976", nom: "Mayotte (Gardiens du Lagon d'Émeraude d'Acier)" },
+                { code: "977", nom: "Saint-Barthélemy (Clan de l'Île au Trésor)" },
+                { code: "978", nom: "Saint-Martin (Flibustiers des Deux Nations)" },
+                { code: "986", nom: "Wallis-et-Futuna (Guerriers des Pirogues Royales)" },
+                { code: "987", nom: "Polynésie française (Seigneurs de l'Océan sans Fin)" },
+                { code: "988", nom: "Nouvelle-Calédonie (Guerriers de la Terre Rouge)" },
+                { code: "99", nom: "Mercenaires d'Outre-Terre (Étranger)" }
+            ];
+
+            depts.forEach(d => {
+                const opt = document.createElement('option');
+                opt.value = d.code;
+                opt.textContent = `${d.code} - ${d.nom}`;
+                opt.className = "bg-stone-950 text-white";
+                select.appendChild(opt);
+            });
+        }
+
+        // CHARGEMENT GÉNÉRAL
+        window.onload = function() {
+            initDropdownMenu();
+            initThemesAccueil();
+            initProgrammeComplet();
+            initProvincesGaule();
+        }
+    </script>
+</body>
+</html>
