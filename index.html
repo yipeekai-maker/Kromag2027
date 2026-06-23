@@ -351,7 +351,7 @@
         </section>
 
         <!-- ============================================== -->
-        <!-- VIEW 3: LE CANDIDAT (ÉDITÉ : NOUVELLE PHOTO)   -->
+        <!-- VIEW 3: LE CANDIDAT                            -->
         <!-- ============================================== -->
         <section id="view-candidat" class="hidden view-transition space-y-8 max-w-4xl mx-auto">
             <div class="bg-gradient-to-b from-stone-900 to-black rounded-3xl p-8 sm:p-12 shadow-2xl border-2 border-barbare-blood/30 space-y-8">
@@ -386,7 +386,7 @@
 
                     <h3 class="font-epic font-black text-xl text-barbare-gold">Le Programme biophysique de l'instinct</h3>
                     <p>
-                        Kromag ne croit pas aux modèles macroéconomiques compliqués de l'INSEE. Il ne connaît qu'un seul calcul : **si tu as faim, mange un dindon; si ton voisin est trop riche, pille-le.**
+                        Kromag ne croit pas aux modèles macroéconomiques compliqués de l'INSEE. He ne connaît qu'un seul calcul : **si tu as faim, mange un dindon; si ton voisin est trop riche, pille-le.**
                     </p>
                     <p>
                         Un vote pour Kromag en 2027 est la garantie d'avoir un chef d'État fort, capable de soulever une armoire normande à mains nues, et de terrifier les diplomates internationaux lors des banquets de l'Élysée en broyant sa chope avec les dents.
@@ -406,7 +406,7 @@
                 </div>
 
                 <form id="contact-form" onsubmit="submitContact(event)" class="space-y-6">
-                    <input type="hidden" name="access_key" value="KROMAG_PRESIDENTIAL_SECRET_KEY">
+                    <input type="hidden" name="access_key" value="628ed66d-6ab0-4f8a-99db-9aabcdedf73f">
                     <input type="hidden" name="subject" value="Nouveau guerrier rallié à la Horde de Kromag">
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -522,7 +522,7 @@
             // EDUCATION (10 mesures)
             { id: "edu-01", cat: "education", titre: "Le Bac de la Forêt Noire", postulat: "Les examens sur table favorisent les tricheurs et les faibles physiques.", action: "Remplacement du baccalauréat par une épreuve de survie de trois jours, seul en forêt face à une meute de loups.", financement: "Aucun coût, l'Éducation Nationale réalise de grosses économies sur les copies et la surveillance.", repercussions: "Une jeunesse débrouillarde, capable de monter un camp de guerre en moins de deux heures." },
             { id: "edu-02", cat: "education", titre: "Suppression de la géométrie inutile", postulat: "La seule ligne droite requise dans la vie est celle d'un javelot bien lancé.", action: "Suppression définitive des cours de géométrie et trigonométrie abstraite au collège.", financement: "Redirection des profs de maths vers des cours de forge d'armes de poing.", repercussions: "Baisse immédiate du décrochage scolaire, les élèves adorent frapper l'enclume." },
-            { id: "edu-03", cat: "education", titre: "L'apprentissage par le cuir", postulat: "Les enfants passent trop de temps devant des vitres lumineuses tactiles de lâches.", action: "Bannissement des tablettes à l'école. Remplacement par l'apprentissage obligatoire de la forge et du tannage dès l'âge de 6 ans.", financement: "Sponsorisé par les guildes de forgerons locaux en échange de main-d'œuvre gratuite.", repercussions: "Des enfants avec des biceps volumineux et des vêtements en peau cousus main." },
+            { id: "edu-03", cat: "education", titre: "L'apprentissage par le cuir", postulat: "Les enfants passent trop de temps devant des vitres lumineuses tactiles de lâches.", action: "Bannissement des tablettes à l'école. Remplacement par l'apprentissage obligatoire de la forge et du tannage dès l'âge de 6 ans.", financement: "Sponsorisé par les guildes de forgerons locaux en échange de main-d'œuvre gratuite.", repercussions: "Des enfants avec des biceps volumineux et des vêtements en peau cousus hand." },
             { id: "edu-04", cat: "education", titre: "Le Cartable de Rocher", postulat: "Nos enfants sont chétifs et se plaignent du poids de leurs livres.", action: "Obligation de remplir les cartables scolaires avec au moins 30 kg de cailloux pour fortifier les trapèzes dès le CP.", financement: "Roches gratuites récupérées lors du nettoyage des chemins de terre communaux.", repercussions: "Génération de guerriers au dos indestructible d'ici 2035." },
             { id: "edu-05", cat: "education", titre: "Brevet de Lancer de Hache", postulat: "Savoir utiliser un compas ne sauvera jamais un adolescent face à un brigand de chemin.", action: "Le lancer de hache de précision devient la matière principale au Brevet des collèges.", financement: "Fourniture de cibles en bois brut par l'Office National des Forêts sauvages.", repercussions: "Les agressions dans la cour de récréation chutent par peur réciproque de représailles hachées." },
             { id: "edu-06", cat: "education", titre: "Le Fléau Pédagogique", postulat: "Les bavardages incessants ralentissent le programme scolaire.", action: "Les enseignants sont autorisés à utiliser un fléau d'armes léger en cuir bouilli pour maintenir l'attention des élèves.", financement: "Fabrication artisanale des fléaux par la classe de travaux manuels.", repercussions: "Climat scolaire studieux et respectueux de l'autorité enseignante." },
@@ -898,10 +898,11 @@
             });
         }
 
-        // FORMULAIRE DE REJOINDRE LA HORDE (CONTACT)
+        // FORMULAIRE DE REJOINDRE LA HORDE (CONTACT) - LIÉ AVEC WEB3FORMS
         async function submitContact(event) {
             event.preventDefault();
             
+            const form = event.target;
             const btn = document.getElementById('submit-btn');
             const originalBtnText = btn.innerHTML;
             const checked = document.getElementById('voter-checkbox').checked;
@@ -910,30 +911,60 @@
             btn.disabled = true;
             btn.innerHTML = `<span>⚔️ GRAVURE DU SERMENT DANS LA PIERRE...</span>`;
 
-            setTimeout(() => {
-                const alertBox = document.createElement('div');
-                alertBox.className = "bg-red-800 text-white text-sm font-semibold p-4 rounded-xl shadow-2xl max-w-sm flex flex-col gap-2 border-2 border-barbare-gold animate-bounce z-50 font-epic";
+            // Extraction des données du formulaire pour envoi JSON à l'API
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            try {
+                // Envoi de la requête asynchrone à Web3Forms
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                });
                 
-                let successMsg = "Tu es désormais un soldat officiel de la Horde de Kromag ! Prépare ta hache.";
-                if (checked) {
-                    successMsg += " Ton serment par le sang a été enregistré par les chamans ! En route pour l'Élysée ! 🔥";
+                const result = await response.json();
+                
+                if (response.status === 200 && result.success) {
+                    // Succès de la transmission !
+                    const alertBox = document.createElement('div');
+                    alertBox.className = "bg-red-800 text-white text-sm font-semibold p-4 rounded-xl shadow-2xl max-w-sm flex flex-col gap-2 border-2 border-barbare-gold animate-bounce z-50 font-epic";
+                    
+                    let successMsg = "Tu es désormais un soldat officiel de la Horde de Kromag ! Prépare ta hache.";
+                    if (checked) {
+                        successMsg += " Ton serment par le sang a été enregistré par les chamans ! En route pour l'Élysée ! 🔥";
+                    }
+
+                    alertBox.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <span class="text-xl">✅</span>
+                            <span>SERMENT PRÊTÉ !</span>
+                        </div>
+                        <p class="text-xs text-barbare-sand">${successMsg}</p>
+                    `;
+                    container.appendChild(alertBox);
+
+                    setTimeout(() => alertBox.remove(), 7000);
+                    
+                    // Réinitialisation du formulaire
+                    form.reset();
+                } else {
+                    // Retour d'erreur de l'API de Web3Forms (mauvaise clé d'accès, etc.)
+                    showToast("❌ Échec : " + (result.message || "Une mauvaise magie a perturbé Web3Forms."));
                 }
-
-                alertBox.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <span class="text-xl">✅</span>
-                        <span>SERMENT PRÊTÉ !</span>
-                    </div>
-                    <p class="text-xs text-barbare-sand">${successMsg}</p>
-                `;
-                container.appendChild(alertBox);
-
-                setTimeout(() => alertBox.remove(), 7000);
-                
-                document.getElementById('contact-form').reset();
+            } catch (error) {
+                // Erreurs réseaux / CORS / hors ligne
+                showToast("❌ La foudre chamanique a frappé le réseau. Réessaie plus tard !");
+                console.error("Erreur de soumission :", error);
+            } finally {
+                // Rétablissement du bouton de soumission
                 btn.disabled = false;
                 btn.innerHTML = originalBtnText;
-            }, 1500);
+            }
         }
 
         // INITIALISATION DES PROVINCES DE FRANCE (101 DEPARTEMENTS ET DOM-TOM BARBARES)
