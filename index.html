@@ -99,10 +99,9 @@
     <header class="bg-barbare-stone/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-barbare-blood/30">
         <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
             <a href="#" onclick="showPage('accueil')" class="flex items-center gap-3">
-                <!-- Logo : Double hache croisée sur urne électorale cassée -->
+                <!-- Logo : logo.png avec gestion du repli -->
                 <div class="relative w-12 h-12 rounded-lg border-2 border-barbare-blood flex items-center justify-center bg-gradient-to-br from-barbare-blood to-black shadow-lg overflow-hidden">
-                    <span class="font-barb text-xl text-barbare-gold tracking-tighter leading-none text-center">PGG</span>
-                    <div class="absolute bottom-0 left-0 right-0 h-1 bg-barbare-bronze"></div>
+                    <img src="images/logo.png" alt="PGG Logo" class="w-full h-full object-cover" onerror="if(this.src.includes('images/')){this.src='logo.png';}else{this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'><circle cx=\'16\' cy=\'16\' r=\'16\' fill=\'%23991b1b\'/><path d=\'M9 10 L23 10 L16 24 Z\' fill=\'%23ffffff\'/><rect x=\'14\' y=\'6\' width=\'4\' height=\'18\' fill=\'%23475569\'/><path d=\'M6 12 Q16 8 26 12\' stroke=\'%23d97706\' stroke-width=\'3\' fill=\'none\'/></svg>';}">
                 </div>
                 <div>
                     <span class="font-epic font-black text-xl tracking-wider text-barbare-gold block leading-none">KROMAG 2027</span>
@@ -149,11 +148,6 @@
                 <!-- Partie gauche : Slogans sanglants et Textes ravageurs -->
                 <div class="p-8 sm:p-12 lg:col-span-7 flex flex-col justify-between space-y-8">
                     <div class="space-y-6">
-                        <!-- En-tête de parti parodique -->
-                        <span class="inline-flex items-center gap-2 bg-barbare-blood/30 border border-barbare-blood text-barbare-gold font-bold text-xs uppercase px-3 py-1.5 rounded-full tracking-widest">
-                            🔥 Élection Présidentielle 2027
-                        </span>
-
                         <!-- Nom d'affiche géant -->
                         <div class="space-y-1">
                             <h1 class="font-epic font-black text-5xl sm:text-7xl tracking-tight text-red-600 leading-none">
@@ -180,7 +174,7 @@
                         </div>
 
                         <p class="text-barbare-sand text-lg leading-relaxed max-w-xl">
-                            Françaises, Français, Horde de France ! Les autres candidats vous promettent la croissance, la baisse des impôts et de longs débats administratifs de lâches. <strong>Moi, Kromag, je promets l'acier, le retour des duels à mort constitutionnels et 100 mesures concrètes de violence thérapeutique nationale.</strong>
+                            Françaises, Français, Horde de la nation ! Les autres candidats vous promettent la croissance, la baisse des impôts et de longs débats administratifs de lâches. <strong>Moi, Kromag, je promets l'acier, le retour des duels à mort constitutionnels et 100 mesures concrètes de violence thérapeutique nationale.</strong>
                         </p>
                     </div>
 
@@ -207,44 +201,29 @@
                     </div>
                 </div>
 
-                <!-- Partie droite : Photo stylisée de Kromag -->
-                <div class="lg:col-span-5 flex flex-col justify-between items-center p-8 relative min-h-[450px] bg-gradient-to-t from-barbare-blood/40 to-transparent">
-                    <!-- Avatar dessiné / SVG de Kromag : Un barbare musclé en costume de politicien déchiré -->
-                    <div class="absolute inset-0 flex items-center justify-center p-4">
-                        <svg class="w-full h-full max-h-[380px] opacity-20 pointer-events-none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <polygon points="50,5 90,30 90,75 50,95 10,75 10,30" fill="none" stroke="#991b1b" stroke-width="2"/>
-                            <path d="M30,35 L50,15 L70,35 L70,65 L50,85 L30,65 Z" fill="#7f1d1d" opacity="0.3"/>
-                        </svg>
-                    </div>
+                <!-- Partie droite : Photo de Kromag à Paris -->
+                <div class="lg:col-span-5 flex flex-col justify-between items-center p-8 relative min-h-[500px] overflow-hidden rounded-r-3xl md:rounded-r-none">
+                    <!-- Image de fond officielle de Kromag -->
+                    <img src="images/kromag.png" alt="Kromag à Paris" class="absolute inset-0 w-full h-full object-cover opacity-90 transition duration-500 hover:scale-105">
+                    
+                    <!-- Voile dégradé de protection pour maintenir un excellent contraste -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-0"></div>
 
-                    <!-- Badge officiel "Votez Kromag" flottant -->
-                    <div class="absolute top-6 right-6 bg-red-800 rounded-full p-4 shadow-2xl border-4 border-barbare-gold rotate-12 flex items-center justify-center w-32 h-32 cursor-pointer transform hover:scale-110 active:scale-95 transition" onclick="playHorn(330, 0.5)">
-                        <div class="text-center">
-                            <span class="font-barb text-2xl text-barbare-gold block leading-tight">VOTEZ</span>
-                            <span class="font-epic font-black text-xl text-white block leading-none">KROMAG</span>
-                            <div class="h-1 w-16 bg-barbare-gold mx-auto mt-1"></div>
-                        </div>
+                    <!-- Badge officiel "Votez Kromag" flottant (décalé encore plus au bord avec effet de débordement d'angle) -->
+                    <div class="absolute -top-4 -right-4 rotate-12 flex items-center justify-center w-48 h-48 cursor-pointer transform hover:scale-110 active:scale-95 transition z-10" onclick="playHorn(330, 0.5)">
+                        <img src="images/badge.png" alt="Votez Kromag" class="w-full h-full object-contain" onerror="if(this.src.includes('images/')){this.src='badge.png';}else{this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'46\' fill=\'%23991b1b\' stroke=\'%23f59e0b\' stroke-width=\'4\'/><text y=\'45\' x=\'50\' font-size=\'18\' font-weight=\'bold\' font-family=\'sans-serif\' text-anchor=\'middle\' fill=\'%23f59e0b\'>VOTEZ</text><text y=\'70\' x=\'50\' font-size=\'16\' font-weight=\'bold\' font-family=\'sans-serif\' text-anchor=\'middle\' fill=\'%23ffffff\'>KROMAG</text></svg>';}">
                     </div>
 
                     <!-- Visuel central du candidat interactif -->
-                    <div class="my-auto text-center space-y-6 z-10">
-                        <!-- Masque SVG barbare ultra-stylisé -->
-                        <div class="w-48 h-48 mx-auto bg-stone-900 rounded-full border-4 border-barbare-blood flex items-center justify-center overflow-hidden shadow-2xl relative">
-                            <span class="text-7xl">🧔</span>
-                            <div class="absolute bottom-0 bg-barbare-blood/90 w-full py-1">
-                                <span class="font-epic text-xs text-barbare-gold font-bold">100% BARBARE</span>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-black/75 backdrop-blur-md px-6 py-4 rounded-2xl border border-barbare-blood/40">
-                            <h3 class="font-epic text-barbare-gold font-bold text-lg">KROMAG LE FENDEUR</h3>
+                    <div class="mt-auto text-center space-y-4 z-10 w-full">
+                       <div class="bg-black/75 backdrop-blur-md px-6 py-4 rounded-2xl border border-barbare-blood/40">
+                            <h3 class="font-epic text-barbare-gold font-bold text-lg">KROMAG LE FENDEUR DE CRANES</h3>
                             <p class="text-xs text-barbare-sand mt-1">"Le seul candidat qui a un certificat officiel de terrassage d'ours brun."</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- LE BOUTON MAGIQUE : "L'ORACLE DE LA MASSUE" -->
             <div class="bg-gradient-to-r from-barbare-blood to-red-950 rounded-3xl p-8 sm:p-12 text-white text-center shadow-2xl relative overflow-hidden border border-barbare-gold/20">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,119,6,0.15),transparent_45%)]"></div>
                 
@@ -273,7 +252,7 @@
                         <!-- État par défaut -->
                         <div id="mesure-placeholder" class="text-center py-6 space-y-3 w-full">
                             <p class="font-barb text-2xl sm:text-3xl text-barbare-gold animate-pulse">
-                                FRARE LA ROUE SI TU ES UN GUERRIER !
+                                FRACASSE L'ORACLE SI TU ES UN GUERRIER !
                             </p>
                             <p class="text-xs text-barbare-ash/50 font-semibold tracking-wider uppercase">Aucun fonctionnaire de Bercy n'a survécu à la rédaction de ce programme</p>
                         </div>
@@ -372,16 +351,17 @@
         </section>
 
         <!-- ============================================== -->
-        <!-- VIEW 3: LE CANDIDAT                            -->
+        <!-- VIEW 3: LE CANDIDAT (ÉDITÉ : NOUVELLE PHOTO)   -->
         <!-- ============================================== -->
         <section id="view-candidat" class="hidden view-transition space-y-8 max-w-4xl mx-auto">
             <div class="bg-gradient-to-b from-stone-900 to-black rounded-3xl p-8 sm:p-12 shadow-2xl border-2 border-barbare-blood/30 space-y-8">
                 
                 <div class="flex flex-col md:flex-row items-center gap-8 border-b border-barbare-blood/30 pb-8">
-                    <!-- Photo de Kromag stylisée -->
+                    <!-- Photo de Kromag stylisée en cercle -->
                     <div class="w-44 h-44 rounded-full bg-gradient-to-tr from-barbare-blood to-barbare-gold shadow-2xl flex-shrink-0 overflow-hidden p-1.5 border-4 border-barbare-darksteel">
-                        <div class="w-full h-full rounded-full bg-stone-950 flex items-center justify-center text-7xl">
-                            🧔
+                        <div class="w-full h-full rounded-full bg-stone-950 overflow-hidden flex items-center justify-center">
+                            <!-- Image avec redimensionnement d'arrière-plan intelligent et fallback si l'image est manquante localement -->
+                            <img src="images/kromag2.png" alt="Kromag" class="w-full h-full object-cover object-top" onerror="if(this.src.includes('images/')){this.src='kromag2.png';}else{this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23111827%22/><text y=%2255%22 x=%2250%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23f59e0b%22>🧔</text></svg>';}">
                         </div>
                     </div>
                     <div class="space-y-3 text-center md:text-left">
@@ -435,7 +415,7 @@
                             <input type="text" name="name" required placeholder="Ex: Ragnar le Sanglant" class="w-full bg-stone-950 border border-barbare-blood/40 focus:ring-2 focus:ring-barbare-gold rounded-xl px-4 py-3 text-sm focus:outline-none text-white">
                         </div>
                         <div class="space-y-1.5">
-                            <label class="text-xs font-bold uppercase tracking-wider text-barbare-gold font-epic">Canal de Pigeon Voyageur (Email)</label>
+                            <label class="text-xs font-bold uppercase tracking-wider text-barbare-gold font-epic">Canal de Pigeon Voyageur</label>
                             <input type="email" name="email" required placeholder="Ex: ragnar@clanhorde.com" class="w-full bg-stone-950 border border-barbare-blood/40 focus:ring-2 focus:ring-barbare-gold rounded-xl px-4 py-3 text-sm focus:outline-none text-white">
                         </div>
                     </div>
@@ -531,10 +511,10 @@
             { id: "eco-01", cat: "economie", titre: "Le Poing d'Or souverain", postulat: "L'euro est une monnaie de banquiers peureux qu'on ne peut même pas croquer pour vérifier si c'est du métal pur.", action: "Bannissement de l'euro, remplacement par le Poing d'Or basé uniquement sur le poids du métal pillé aux voisins.", financement: "Pillage à coups de hache des coffres-forts des pays frontaliers réputés trop calmes.", repercussions: "Fin de l'inflation, car le premier commerçant qui augmente ses prix est provoqué en duel à mort par le ministre du Pillage." },
             { id: "eco-02", cat: "economie", titre: "Taxe forfaitaire de bétail", postulat: "Déclarer ses impôts sur internet provoque des maux de tête incompatibles avec la guerre.", action: "Abolition de l'impôt sur le revenu. Remplacement par une taxe annuelle fixe de 10% prélevée uniquement en têtes de bétail ou en sacs d'orge.", financement: "Les fonctionnaires des impôts iront eux-mêmes capturer les chèvres récalcitrantes.", repercussions: "Simplification fiscale absolue. Les foyers français retrouvent la joie de posséder des chèvres de combat." },
             { id: "eco-03", cat: "economie", titre: "Redressement par l'assaut physique", postulat: "Le déficit commercial de la France provient du fait qu'on demande poliment aux autres pays de nous acheter nos produits.", action: "Envoi régulier de notre flotte de drakkars publics pour piller les nations excédentaires sous-armées.", financement: "Gratuit, les drakkars s'autofinancent dès le premier monastère côtier rencontré.", repercussions: "Excédent commercial immédiat et approvisionnement constant en reliques d'or fin." },
-            { id: "eco-04", cat: "economie", titre: "Banques gardées par des ours", postulat: "Les banques virtuelles modernes permettent aux hackers de voler votre argent sans même recevoir un seul coup d'épée.", action: "Nationalisation des banques pour transformer chaque agence en coffre physique gardé par des ours bruns affamés.", financement: "Rémunération des gardiens de banque en carcasses de mouton fraîches.", repercussions: "Taux de braquage et de cybercriminalité réduit à 0% dans toute le pays." },
+            { id: "eco-04", cat: "economie", titre: "Banques gardées par des ours", postulat: "Les banques virtuelles modernes permettent aux hackers de voler votre argent sans même recevoir un seul coup d'épée.", action: "Nationalisation des banques pour transformer chaque agence en coffre physique gardé par des ours bruns affamés.", financement: "Rémunération des gardiens de banque en carcasses de mouton fraîches.", repercussions: "Taux de braquage et de cybercriminalité réduit à 0% dans toute la France." },
             { id: "eco-05", cat: "economie", titre: "Le Livret 'Trou derrière la Hutte'", postulat: "Les banquiers spéculent sur votre épargne et créent des crises financières avec de l'argent imaginaire.", action: "Remplacement officiel du Livret A par le 'Livret Trou derrière la Hutte'. Rendement de 0% mais garanti sans crise spéculative.", financement: "Une pelle et un morceau de cuir étanche fournis par la mairie.", repercussions: "Épargne sécurisée à 100% contre les krachs boursiers." },
             { id: "eco-06", cat: "economie", titre: "Bannissement des termes de lâches", postulat: "Des mots comme 'synergies', 'optimisation fiscale' ou 'disruptif' polluent l'air et énervent le peuple.", action: "Interdiction pénale de prononcer ces mots. Tout contrevenant recevra 10 coups de lanière de cuir sur la place publique.", financement: "Ne coûte rien, rapporte des peaux de bêtes confisquées aux contrevenants récidivistes.", repercussions: "Les réunions d'entreprises deviennent beaucoup plus silencieuses et productives." },
-            { id: "eco-07", cat: "economie", titre: "TVA 0% sur la survie", postulat: "Taxer la nourriture et les outils de survie est une trahison d'un chef indigne.", action: "TVA à 0% sur l'hydromel, la cuisse de sanglier fraîche, les fourrures d'ours et les haches de guerre.", financement: "Compensé par une taxe de 300% sur le quinoa importé et les salades en boîte plastique.", repercussions: "Guerriers nourris au gras de porc, prêts à défendre le territoire." },
+            { id: "eco-07", cat: "economie", titre: "TVA 0% sur la survivie", postulat: "Taxer la nourriture et les outils de survie est une trahison d'un chef indigne.", action: "TVA à 0% sur l'hydromel, la cuisse de sanglier fraîche, les fourrures d'ours et les haches de guerre.", financement: "Compensé par une taxe de 300% sur le quinoa importé et les salades en boîte plastique.", repercussions: "Guerriers nourris au gras de porc, prêts à défendre le territoire." },
             { id: "eco-08", cat: "economie", titre: "Le CAC 40 de la Fosse", postulat: "Le cours des actions est régi par des ordinateurs qui ne comprennent rien à la force brute.", action: "Remplacement de la Bourse de Paris par une grande mêlée annuelle. Le PDG survivant voit son action grimper.", financement: "Billetterie de l'arène retransmise en direct à la télévision nationale.", repercussions: "Les entreprises françaises se dotent enfin de patrons robustes capables de survivre à un assaut de trolls." },
             { id: "eco-09", cat: "economie", titre: "Interdiction des monnaies de vent", postulat: "Les cryptomonnaies ne servent à rien si on ne peut pas les mordre pour s'assurer de leur reality physique.", action: "Abolition immédiate des bitcoins et autres monnaies numériques inutiles.", financement: "Saisie de tout le matériel informatique pour le forger en pointes de javelots.", repercussions: "Les spéculateurs retournent bêcher la terre ou fondre des métaux." },
             { id: "eco-10", cat: "economie", titre: "Financement des mariages par la dote", postulat: "La mairie fait signer trop de parchemins pour unir deux personnes.", action: "Unification par grand banquet obligatoire. Les invités doivent amener au moins un porc rôti ou deux tonneaux de cervoise.", financement: "Pris en charge par les familles sous peine d'être chassées du village.", repercussions: "Fêtes grandioses et cohésion sociale renforcée par l'ivresse républicaine." },
@@ -571,7 +551,7 @@
             { id: "eco-25", cat: "ecologie", titre: "Boeufs géants agraires", postulat: "Les tracteurs consomment du pétrole qui finance des guerres d'alliances lointaines.", action: "Remplacement des machines agricoles par des bœufs géants guidés par des paysans hurlant des incantations de fertilité.", financement: "Achat de taureaux reproducteurs par l'État.", repercussions: "Fin de la pollution agricole et réapparition de sols sains labourés en profondeur." },
             { id: "eco-26", cat: "ecologie", titre: "Tri sélectif barbare", postulat: "Les poubelles de couleur jaune, bleue, verte et grise font perdre leur temps aux gens normaux.", action: "Simplification du tri : 'Si ça brûle, au feu. Si ça se mange, au chien. Le reste, jette-le chez ton voisin.'", financement: "Neutre.", repercussions: "Aucun camion-poubelle nécessaire, réduction de la consommation urbaine par crainte du retour de déchets par catapultes." },
             { id: "eco-27", cat: "ecologie", titre: "Guerre contre le Soleil", postulat: "La canicule dessèche nos cultures et met les guerriers de mauvaise humeur.", action: "Obligation nationale de jeter des javelots vers le soleil pendant les canicules pour lui exprimer notre colère.", financement: "Fourniture de javelots recyclés par la forge municipale.", repercussions: "Le soleil finit par reculer derrière les nuages par peur du courroux de Kromag." },
-            { id: "eco-28", cat: "ecologie", titre: "Eau en crâne évidé", postulat: "Les bouteilles plastiques détruisent les océans.", action: "L'eau de source de montagne doit être bue exclusivement dans des crânes d'animaux ou d'ennemis évidés.", financement: "Récupération des crânes lors des banquets nationaux de chasse.", repercussions: "Disparition totale du plastique à usage unique dans tout le pays." },
+            { id: "eco-28", cat: "ecologie", titre: "Eau en crâne évidé", postulat: "Les bouteilles plastiques détruisent les océans.", action: "L'eau de source de montagne doit être bue exclusivement dans des crânes d'animaux ou d'ennemis évidés.", financement: "Récupération des crânes lors des banquets nationaux de chasse.", repercussions: "Disparition totale du plastique à usage unique dans toute la France." },
             { id: "eco-29", cat: "ecologie", titre: "Bannissement du plastique", postulat: "Le plastique ramollit le corps et ne peut pas servir à fabriquer une bonne armure.", action: "Interdiction du plastique sous toutes ses formes; retour obligatoire au cuir brut, à la corne ou au fer.", financement: "Mise au travail forcée des tanneurs nationaux.", repercussions: "Des objets durables qui durent 400 ans et qui sentent bon la bête." },
             { id: "eco-30", cat: "ecologie", titre: "Paris Sauvage", postulat: "Paris est trop bétonné, ce qui insulte la nature sauvage.", action: "Plantation forcée de forêts de ronces géantes sur les boulevards parisiens pour y réintroduire des ours bruns.", financement: "Récupération des graines de ronces sauvages en forêt de Brocéliande.", repercussions: "Les parisiens réapprennent à courir vite pour aller travailler." },
 
@@ -595,7 +575,7 @@
             { id: "tra-55", cat: "travail", titre: "Semaine de Pillage de 3 jours", postulat: "Travailler 5 jours par semaine détruit le temps requis pour festoyer et dormir.", action: "Semaine de travail réduite à 3 jours. Les 4 autres jours sont réservés à la chasse, au pillage et à l'hydromel.", financement: "Compensé par la productivité folle de guerriers heureux d'avoir du temps libre.", repercussions: "Bonheur national brut multiplié par dix." },
             { id: "tra-56", cat: "travail", titre: "Le SMIC en gigot", postulat: "L'argent fiduciaire fluctue et ne remplit pas l'estomac des enfants.", action: "Remplacement du SMIC monétaire par la Ration de Viande et d'Hydromel par foyer.", financement: "Fourniture par les grands élevages nationaux.", repercussions: "Plus aucune famille n'a faim sous le règne de Kromag." },
             { id: "tra-57", cat: "travail", titre: "Interdiction de PowerPoint", postulat: "Les réunions PowerPoint endorment les cerveaux avec des diagrammes colorés inutiles.", action: "Interdiction de présenter des projets sur écran. Tout projet doit être mimé avec des cris de guerre et des peintures.", financement: "Achat de craies de guerre de couleur.", repercussions: "Les réunions durent moins de 5 minutes et tout le monde comprend immédiatement l'objectif." },
-            { id: "tra-58", cat: "travail", titre: "Aigle de sang managérial", postulat: "Les harceleurs de bureau détruisent la santé mentale des ouvriers sans risquer d'épée.", action: "Le harcèlement managérial grave est puni du supplice de l'aigle de sang appliqué au manager fautif.", financement: "Exécuté bénévolement par l'ouvrier le plus fort de l'équipe.", repercussions: "Disparition immédiate du burn-out professionnel dans toute la nation." },
+            { id: "tra-58", cat: "travail", titre: "Aigle de sang managérial", postulat: "Les harceleurs de bureau détruisent la santé mentale des ouvriers sans risquer d'épée.", action: "Le harcèlement managérial grave est puni du supplice de l'aigle de sang appliqué au manager fautif.", financement: "Exécuté bénévolement par l'ouvrier le plus fort de l'équipe.", repercussions: "Disparition immédiate du burn-out professionnel dans toute la France." },
             { id: "tra-59", cat: "travail", titre: "Reconversion des Influenceurs", postulat: "Les influenceurs numériques font des danses futiles devant des caméras au lieu d'aider la patrie.", action: "Envoi obligatoire des influenceurs défricher la Creuse sauvage à l'aide de haches de silex.", financement: "Fourniture de haches bas de gamme.", repercussions: "La Creuse devient un verger national magnifique et internet s'assainit naturellement." },
             { id: "tra-60", cat: "travail", titre: "Clans de guerre syndicaux", postulat: "Les syndicats actuels signent des papiers de capitulation avec le patronat.", action: "Remplacement des syndicats par des clans de guerre jurés qui s'affrontent lors d'un grand tournoi annuel pour les budgets.", financement: "Arène de combat financée par le ministère du Travail.", repercussions: "Représentation ouvrière forte, respectée et redoutable." },
 
@@ -648,7 +628,6 @@
             { id: "ins-100", cat: "institutions", titre: "Le Vote du Pilori", postulat: "L'abstention électorale est une trahison de lâche qui montre le désintérêt pour le chef.", action: "Le vote est obligatoire. Tout abstentionniste est attaché au pilori du village pendant une semaine sous les jets de fumier de chèvre.", financement: "Fumier fourni généreusement par les éleveurs de chèvres du canton.", repercussions: "Taux de participation de 100% à toutes les élections de Kromag." }
         ];
 
-        // NAVIGATION DU SITE (Single Page App)
         function showPage(pageId) {
             ['accueil', 'programme', 'candidat', 'contact'].forEach(id => {
                 document.getElementById(`view-${id}`).classList.add('hidden');
@@ -703,7 +682,6 @@
             });
         }
 
-        // GENERATEUR DE LA ROULETTE BARBARE
         let derniereMesureTiree = null;
 
         function tirerMesureBarbare() {
@@ -781,7 +759,6 @@
             }, 3000);
         }
 
-        // INITIALISATION DES THÉMATIQUES SUR L'ACCUEIL
         function initThemesAccueil() {
             const grid = document.getElementById('themes-grid');
             grid.innerHTML = "";
@@ -808,7 +785,6 @@
             });
         }
 
-        // INITIALISATION DU PROGRAMME COMPLET (100 MESURES)
         function initProgrammeComplet() {
             const listContainer = document.getElementById('programme-list');
             listContainer.innerHTML = "";
@@ -893,7 +869,6 @@
             showToast("📋 Proposition gravée dans ton crâne !");
         }
 
-        // RECHERCHE EN TEMPS RÉEL DANS LE GRIMOIRE
         function filtrerProgramme() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
 
