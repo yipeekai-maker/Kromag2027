@@ -85,19 +85,28 @@
             0% { box-shadow: 0 0 10px rgba(217, 119, 6, 0.5); }
             100% { box-shadow: 0 0 30px rgba(153, 27, 27, 0.9); }
         }
+
+        /* Masquage de la barre de défilement pour conserver une esthétique propre sur mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 <body class="rock-texture min-h-screen flex flex-col font-sans text-ash selection:bg-barbare-gold selection:text-black">
 
-    <!-- Version barbare du drapeau français : Sang, Os et Cendre calcinée -->
+    <!-- Version barbare inversée du drapeau français : Bleu très foncé, Os et Sang -->
     <div class="h-2 w-full flex">
-        <div class="h-full w-1/3 bg-red-800"></div>
+        <div class="h-full w-1/3 bg-blue-950"></div>
         <div class="h-full w-1/3 bg-stone-200"></div>
-        <div class="h-full w-1/3 bg-neutral-900"></div>
+        <div class="h-full w-1/3 bg-red-800"></div>
     </div>
 
     <header class="bg-barbare-stone/95 backdrop-blur-md sticky top-0 z-50 border-b-2 border-barbare-blood/30">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
             <a href="#" onclick="showPage('accueil')" class="flex items-center gap-3">
                 <!-- Logo : logo.png avec gestion du repli -->
                 <div class="relative w-12 h-12 rounded-lg border-2 border-barbare-blood flex items-center justify-center bg-gradient-to-br from-barbare-blood to-black shadow-lg overflow-hidden">
@@ -109,12 +118,13 @@
                 </div>
             </a>
             
-            <nav class="flex flex-wrap items-center gap-2 sm:gap-4 mt-3 md:mt-0">
-                <button onclick="showPage('accueil')" id="nav-accueil" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition bg-barbare-blood text-white shadow-md">QG de Campagne</button>
+            <!-- Navigation optimisée mobile : flex-nowrap + no-scrollbar pour tout afficher sur une seule ligne -->
+            <nav class="flex flex-nowrap items-center gap-1.5 sm:gap-4 overflow-x-auto max-w-full pb-1 no-scrollbar w-full md:w-auto justify-start sm:justify-center md:justify-start">
+                <button onclick="showPage('accueil')" id="nav-accueil" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition bg-barbare-blood text-white shadow-md border border-barbare-gold/30 whitespace-nowrap">QG de Campagne</button>
                 
                 <!-- MENU DÉROULANT DES THEMES -->
                 <div class="relative group inline-block">
-                    <button onclick="showPage('programme')" id="nav-programme" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20">
+                    <button onclick="showPage('programme')" id="nav-programme" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20 whitespace-nowrap">
                         <span>Le Programme</span>
                     </button>
                     <!-- Liste déroulante des catégories barbares -->
@@ -125,8 +135,8 @@
                     </div>
                 </div>
 
-                <button onclick="showPage('candidat')" id="nav-candidat" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20">Le Barbare</button>
-                <button onclick="showPage('contact')" id="nav-contact" class="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20">Rejoins la Horde</button>
+                <button onclick="showPage('candidat')" id="nav-candidat" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20 whitespace-nowrap">Le Barbare</button>
+                <button onclick="showPage('contact')" id="nav-contact" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20 whitespace-nowrap">Rejoins la Horde</button>
             </nav>
         </div>
     </header>
@@ -209,10 +219,6 @@
                     <!-- Voile dégradé de protection pour maintenir un excellent contraste -->
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-0"></div>
 
-                    <!-- Badge officiel "Votez Kromag" flottant (décalé encore plus au bord avec effet de débordement d'angle) -->
-                    <div class="absolute -top-4 -right-4 rotate-12 flex items-center justify-center w-48 h-48 cursor-pointer transform hover:scale-110 active:scale-95 transition z-10" onclick="playHorn(330, 0.5)">
-                        <img src="images/badge.png" alt="Votez Kromag" class="w-full h-full object-contain" onerror="if(this.src.includes('images/')){this.src='badge.png';}else{this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'46\' fill=\'%23991b1b\' stroke=\'%23f59e0b\' stroke-width=\'4\'/><text y=\'45\' x=\'50\' font-size=\'18\' font-weight=\'bold\' font-family=\'sans-serif\' text-anchor=\'middle\' fill=\'%23f59e0b\'>VOTEZ</text><text y=\'70\' x=\'50\' font-size=\'16\' font-weight=\'bold\' font-family=\'sans-serif\' text-anchor=\'middle\' fill=\'%23ffffff\'>KROMAG</text></svg>';}">
-                    </div>
 
                     <!-- Visuel central du candidat interactif -->
                     <div class="mt-auto text-center space-y-4 z-10 w-full">
@@ -360,7 +366,7 @@
                     <!-- Photo de Kromag stylisée en cercle -->
                     <div class="w-44 h-44 rounded-full bg-gradient-to-tr from-barbare-blood to-barbare-gold shadow-2xl flex-shrink-0 overflow-hidden p-1.5 border-4 border-barbare-darksteel">
                         <div class="w-full h-full rounded-full bg-stone-950 overflow-hidden flex items-center justify-center">
-                            <!-- Image avec redimensionnement d'arrière-plan intelligent et fallback si l'image est manquante localement -->
+                            <!-- Image avec fallback -->
                             <img src="images/kromag2.png" alt="Kromag" class="w-full h-full object-cover object-top" onerror="if(this.src.includes('images/')){this.src='kromag2.png';}else{this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23111827%22/><text y=%2255%22 x=%2250%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23f59e0b%22>🧔</text></svg>';}">
                         </div>
                     </div>
@@ -456,9 +462,9 @@
                     Un projet politique né de l'acier et de la massue pour purifier l'administration moderne de son blabla perpétuel.
                 </p>
                 <div class="flex items-center gap-2">
-                    <span class="inline-block h-3 w-3 rounded-full bg-red-800"></span>
+                    <span class="inline-block h-3 w-3 rounded-full bg-blue-950"></span>
                     <span class="inline-block h-3 w-3 rounded-full bg-stone-200"></span>
-                    <span class="inline-block h-3 w-3 rounded-full bg-neutral-900"></span>
+                    <span class="inline-block h-3 w-3 rounded-full bg-red-800"></span>
                     <span class="text-xs text-gray-400 font-semibold uppercase ml-2">Pour la Horde Sauvage</span>
                 </div>
             </div>
@@ -486,12 +492,11 @@
     </footer>
 
     <script>
-        // Le chaman de Kromag a jeté un sort de silence sur la corne pour préserver la paix républicaine.
         function playHorn(frequency = 120, duration = 0.8) {
-            // Pas de bruit, le silence est d'or pour concentrer la rage de combat.
+            // Le chaman a jeté un sort de silence sur la corne.
         }
 
-        // LES 10 THÉMATIQUES DE KROMAG (Régies par la force)
+        // LES 10 THÉMATIQUES DE KROMAG
         const categories = {
             "economie": { title: "Économie, Fiscalité et Pillage", icon: "💰" },
             "education": { title: "Éducation & Épreuves de Force", icon: "🪓" },
@@ -505,9 +510,9 @@
             "institutions": { title: "Sorcellerie administrative", icon: "🏛️" }
         };
 
-        // LES 100 MESURES DE CONQUÊTE DE KROMAG
+        // LES 100 MESURES
         const programme = [
-            // ECONOMIE (10 mesures)
+            // ECONOMIE
             { id: "eco-01", cat: "economie", titre: "Le Poing d'Or souverain", postulat: "L'euro est une monnaie de banquiers peureux qu'on ne peut même pas croquer pour vérifier si c'est du métal pur.", action: "Bannissement de l'euro, remplacement par le Poing d'Or basé uniquement sur le poids du métal pillé aux voisins.", financement: "Pillage à coups de hache des coffres-forts des pays frontaliers réputés trop calmes.", repercussions: "Fin de l'inflation, car le premier commerçant qui augmente ses prix est provoqué en duel à mort par le ministre du Pillage." },
             { id: "eco-02", cat: "economie", titre: "Taxe forfaitaire de bétail", postulat: "Déclarer ses impôts sur internet provoque des maux de tête incompatibles avec la guerre.", action: "Abolition de l'impôt sur le revenu. Remplacement par une taxe annuelle fixe de 10% prélevée uniquement en têtes de bétail ou en sacs d'orge.", financement: "Les fonctionnaires des impôts iront eux-mêmes capturer les chèvres récalcitrantes.", repercussions: "Simplification fiscale absolue. Les foyers français retrouvent la joie de posséder des chèvres de combat." },
             { id: "eco-03", cat: "economie", titre: "Redressement par l'assaut physique", postulat: "Le déficit commercial de la France provient du fait qu'on demande poliment aux autres pays de nous acheter nos produits.", action: "Envoi régulier de notre flotte de drakkars publics pour piller les nations excédentaires sous-armées.", financement: "Gratuit, les drakkars s'autofinancent dès le premier monastère côtier rencontré.", repercussions: "Excédent commercial immédiat et approvisionnement constant en reliques d'or fin." },
@@ -519,19 +524,19 @@
             { id: "eco-09", cat: "economie", titre: "Interdiction des monnaies de vent", postulat: "Les cryptomonnaies ne servent à rien si on ne peut pas les mordre pour s'assurer de leur realité physique.", action: "Abolition immédiate des bitcoins et autres monnaies numériques inutiles.", financement: "Saisie de tout le matériel informatique pour le forger en pointes de javelots.", repercussions: "Les spéculateurs retournent bêcher la terre ou fondre des métaux." },
             { id: "eco-10", cat: "economie", titre: "Financement des mariages par la dote", postulat: "La mairie fait signer trop de parchemins pour unir deux personnes.", action: "Unification par grand banquet obligatoire. Les invités doivent amener au moins un porc rôti ou deux tonneaux de cervoise.", financement: "Pris en charge par les familles sous peine d'être chassées du village.", repercussions: "Fêtes grandioses et cohésion sociale renforcée par l'ivresse républicaine." },
 
-            // EDUCATION (10 mesures)
+            // EDUCATION
             { id: "edu-01", cat: "education", titre: "Le Bac de la Forêt Noire", postulat: "Les examens sur table favorisent les tricheurs et les faibles physiques.", action: "Remplacement du baccalauréat par une épreuve de survie de trois jours, seul en forêt face à une meute de loups.", financement: "Aucun coût, l'Éducation Nationale réalise de grosses économies sur les copies et la surveillance.", repercussions: "Une jeunesse débrouillarde, capable de monter un camp de guerre en moins de deux heures." },
             { id: "edu-02", cat: "education", titre: "Suppression de la géométrie inutile", postulat: "La seule ligne droite requise dans la vie est celle d'un javelot bien lancé.", action: "Suppression définitive des cours de géométrie et trigonométrie abstraite au collège.", financement: "Redirection des profs de maths vers des cours de forge d'armes de poing.", repercussions: "Baisse immédiate du décrochage scolaire, les élèves adorent frapper l'enclume." },
             { id: "edu-03", cat: "education", titre: "L'apprentissage par le cuir", postulat: "Les enfants passent trop de temps devant des vitres lumineuses tactiles de lâches.", action: "Bannissement des tablettes à l'école. Remplacement par l'apprentissage obligatoire de la forge et du tannage dès l'âge de 6 ans.", financement: "Sponsorisé par les guildes de forgerons locaux en échange de main-d'œuvre gratuite.", repercussions: "Des enfants avec des biceps volumineux et des vêtements en peau cousus main." },
             { id: "edu-04", cat: "education", titre: "Le Cartable de Rocher", postulat: "Nos enfants sont chétifs et se plaignent du poids de leurs livres.", action: "Obligation de remplir les cartables scolaires avec au moins 30 kg de cailloux pour fortifier les trapèzes dès le CP.", financement: "Roches gratuites récupérées lors du nettoyage des chemins de terre communaux.", repercussions: "Génération de guerriers au dos indestructible d'ici 2035." },
-            { id: "edu-05", cat: "education", titre: "Brevet de Lancer de Hache", postulat: "Savoir utiliser un compas ne sauvera jamais un adolescent face à un brigand de chemin.", action: "Le lancer de hache de précision devient la matière principale au Brevet des collèges.", financement: "Fourniture de cibles en bois brut par l'Office National des Forêts sauvages.", repercussions: "Les agressions dans la cour de récréation chutent par peur réciproque de représailles hachées." },
+            { id: "edu-05", cat: "education", titre: "Brevet de Lancer de Hache", postulat: "Savoir utiliser un compas ne sauvera jamais un adolescent face à un brigand de chemin.", action: "Le lancer de hache de précision devient la matière principale au Brevet des collèges.", financement: "Fourniture de cibles en bois brut par l'Office National des Forêts sauvages.", repercussions: "Les agressions dans la cour de récréation chutent par peur réciproque de reprisallles hachées." },
             { id: "edu-06", cat: "education", titre: "Le Fléau Pédagogique", postulat: "Les bavardages incessants ralentissent le programme scolaire.", action: "Les enseignants sont autorisés à utiliser un fléau d'armes léger en cuir bouilli pour maintenir l'attention des élèves.", financement: "Fabrication artisanale des fléaux par la classe de travaux manuels.", repercussions: "Climat scolaire studieux et respectueux de l'autorité enseignante." },
             { id: "edu-07", cat: "education", titre: "Mêlée générale Parcoursup", postulat: "Les algorithmes informatiques de tri créent de l'injustice pour nos jeunes.", action: "Remplacement de Parcoursup par une mêlée générale dans la boue. Les 500 derniers debout choisissent leur université.", financement: "Une grande bâche et de l'eau pour faire de la boue sur la pelouse du ministère de l'Éducation.", repercussions: "Orientation juste, transparente et validée par la robustesse physique." },
             { id: "edu-08", cat: "education", titre: "L'heure du Regard Noir", postulat: "Les enfants n'ont plus d'affirmation personnelle.", action: "Remplacement des cours de philosophie par une heure de regard noir dans les yeux du voisin sans cligner des paupières.", financement: "Totalement gratuit, aucun matériel nécessaire.", repercussions: "Des citoyens sûrs d'eux, intimidants et incapables de se laisser manipuler par les publicités de parfum." },
             { id: "edu-09", cat: "education", titre: "Cantine de Chasse Active", postulat: "Préparer des plateaux-repas industriels rend les enfants paresseux.", action: "Suppression des cantines scolaires. Chaque classe doit chasser son propre dindon sauvage, lâché chaque matin dans la cour.", financement: "Lâcher de volailles opéré par les fédérations de chasse locale.", repercussions: "Travail d'équipe, stratégie militaire et nourriture fraîche garantie." },
             { id: "edu-10", cat: "education", titre: "Le Repos des Guerriers du Soir", postulat: "Donner des devoirs le soir prive les enfants du temps de banquet familial.", action: "Interdiction totale des devoirs du soir. Le crépuscule est réservé aux contes héroïques et à l'hydromel tiède.", financement: "Neutre.", repercussions: "Enfants heureux, bien reposés et prêts à piller le lendemain dès l'aube." },
 
-            // JUSTICE (10 mesures)
+            // JUSTICE
             { id: "jus-01", cat: "justice", titre: "Code pénal à ligne unique", postulat: "Le code pénal moderne est trop épais, écrit trop petit et ne sert qu'à enrichir les avocats.", action: "Réduction du Code pénal à : 'Si tu voles on coupe, si tu tues on te découpe'.", financement: "Économie de milliards d'euros de frais d'avocats publics.", repercussions: "Taux de récidive ramené à 0% immédiatement." },
             { id: "jus-02", cat: "justice", titre: "Duels Judiciaires à la télé", postulat: "Les jurés s'endorment pendant les plaidoiries de dix heures.", action: "Remplacement des cours d'assises par des Duels à mort en direct le dimanche soir à 20h.", financement: "Financé par les droits de diffusion télévisuelle et les pubs pour les fabricants d'épées.", repercussions: "Divertissement national de qualité et résolution rapide des litiges commerciaux." },
             { id: "jus-03", cat: "justice", titre: "Le Nid de Frelons d'aveux", postulat: "La garde à vue moderne est trop confortable : café chaud et chaises de bureau.", action: "Suspension des suspects par les pieds au-dessus d'un nid de frelons géants pour accélérer les aveux.", financement: "Récupération naturelle des nids de frelons par les pompiers volontaires.", repercussions: "Aveux obtenus en moins de 15 secondes dans 100% des cas." },
@@ -543,7 +548,7 @@
             { id: "jus-09", cat: "justice", titre: "Interdiction des avocats menteurs", postulat: "Les avocats parlent trop bien pour masquer la vérité des crimes commis.", action: "Interdiction de la profession d'avocat. Chaque accusé doit se défendre lui-même en hurlant son innocence en se frappant le torse.", financement: "Économie budgétaire nette pour le ministère de la Justice.", repercussions: "Seuls les innocents ayant une voix puissante sont acquittés." },
             { id: "jus-10", cat: "justice", titre: "Vendetta du Mardi", postulat: "Les vengeances familiales désorganisent le trafic de semaine.", action: "Légalisation de la vendetta familiale, mais strictement limitée au troisième mardi du mois.", financement: "Neutre.", repercussions: "Moins d'embouteillages le reste du mois et régulation saine de la population locale." },
 
-            // ECOLOGIE (10 mesures)
+            // ECOLOGIE
             { id: "eco-21", cat: "ecologie", titre: "Chars à pointes écologiques", postulat: "Les SUV électriques consomment trop de lithium et polluent nos sols pour l'extraction.", action: "Interdiction des voitures. Retour obligatoire aux chars à pointes tractés par des étalons enragés.", financement: "Élevages nationaux de chevaux nourris au foin bio.", repercussions: "Transports 100% écologiques et réduction de l'obésité grâce au pilotage de char debout." },
             { id: "eco-22", cat: "ecologie", titre: "Totems de Vent sacrés", postulat: "Les éoliennes gâchent le paysage et détruisent les oiseaux.", action: "Démantèlement des éoliennes, remplacées par des totems sacrificiels en bois pour apaiser le Dieu du Vent.", financement: "Sculpture des totems par des artistes bûcherons locaux.", repercussions: "Restauration des paysages et retour du vent bienveillant par magie chamanique." },
             { id: "eco-23", cat: "ecologie", titre: "Chauffage de conquête", postulat: "Le gaz de ville dépend de tuyaux importés de chez des dirigeants suspects.", action: "Obligation de chauffer sa hutte en brûlant exclusivement du bois mort ou les meubles de ses rivaux de quartier.", financement: "Aucun coût, favorise le nettoyage des forêts et le règlement des comptes de voisinage.", repercussions: "Indépendance énergétique complète de chaque quartier de France." },
@@ -552,10 +557,10 @@
             { id: "eco-26", cat: "ecologie", titre: "Tri sélectif barbare", postulat: "Les poubelles de couleur jaune, bleue, verte et grise font perdre leur temps aux gens normaux.", action: "Simplification du tri : 'Si ça brûle, au feu. Si ça se mange, au chien. Le reste, jette-le chez ton voisin.'", financement: "Neutre.", repercussions: "Aucun camion-poubelle nécessaire, réduction de la consommation urbaine par crainte du retour de déchets par catapultes." },
             { id: "eco-27", cat: "ecologie", titre: "Guerre contre le Soleil", postulat: "La canicule dessèche nos cultures et met les guerriers de mauvaise humeur.", action: "Obligation nationale de jeter des javelots vers le soleil pendant les canicules pour lui exprimer notre colère.", financement: "Fourniture de javelots recyclés par la forge municipale.", repercussions: "Le soleil finit par reculer derrière les nuages par peur du courroux de Kromag." },
             { id: "eco-28", cat: "ecologie", titre: "Eau en crâne évidé", postulat: "Les bouteilles plastiques détruisent les océans.", action: "L'eau de source de montagne doit être bue exclusivement dans des crânes d'animaux ou d'ennemis évidés.", financement: "Récupération des crânes lors des banquets nationaux de chasse.", repercussions: "Disparition totale du plastique à usage unique dans toute la France." },
-            { id: "eco-29", cat: "ecologie", titre: "Bannissement du plastique", postulat: "Le plastique ramollit le corps et ne peut pas servir à fabriquer une bonne armure.", action: "Interdiction du plastique sous toutes ses formes; retour obligatoire au cuir brut, à la corne ou au fer.", financement: "Mise au travail forcée des tanneurs nationaux.", repercussions: "Des objets durables qui durent 400 ans et qui sentent bon la bête." },
+            { id: "eco-29", cat: "ecologie", titre: "Bannissement du plastique", postulat: "Le plastique ramollit le corps et ne peut pas servir à fabriquer une bonne armure.", action: "Interdiction du plastique sous toutes ses formes; retour obligatoire au cuir brute, à la corne ou au fer.", financement: "Mise au travail forcée des tanneurs nationaux.", repercussions: "Des objets durables qui durent 400 ans et qui sentent bon la bête." },
             { id: "eco-30", cat: "ecologie", titre: "Paris Sauvage", postulat: "Paris est trop bétonné, ce qui insulte la nature sauvage.", action: "Plantation forcée de forêts de ronces géantes sur les boulevards parisiens pour y réintroduire des ours bruns.", financement: "Récupération des graines de ronces sauvages en forêt de Brocéliande.", repercussions: "Les parisiens réapprennent à courir vite pour aller travailler." },
 
-            // SANTE (10 mesures)
+            // SANTE
             { id: "san-01", cat: "sante", titre: "Tatouage de vie Vitale", postulat: "La carte vitale en plastique vert se perd facilement dans les forêts.", action: "Remplacement de la carte vitale par un Tatouage de Résistance appliqué au fer rouge sur le bras dès la naissance.", financement: "Un forgeron de santé publique par canton équipé d'un brasero d'État.", repercussions: "Plus aucune fraude à la sécurité sociale possible; les enfants apprennent à supporter la douleur." },
             { id: "san-02", cat: "sante", titre: "Anesthésie à la massue", postulat: "Les produits chimiques d'anesthésie rendent flasques les muscles des patients.", action: "Interdiction des produits chimiques. Remplacement par un grand coup de massue en chêne sur le crâne avant opération.", financement: "Une massue en chêne robuste fournie à chaque chirurgien de l'État.", repercussions: "Énormes économies pour la sécurité sociale et réveil rapide des patients vigoureux." },
             { id: "san-03", cat: "sante", titre: "Surcharge esthétique interdite", postulat: "La chirurgie esthétique moderne modifie les visages pour ressembler à des poupées en plastique.", action: "Interdiction de la chirurgie esthétique, sauf pour ajouter des cicatrices de combat valorisantes ou des peintures de guerre.", financement: "Pris en charge par l'État si la cicatrice est obtenue face à un sanglier au moins.", repercussions: "Des visages honorables et effrayants qui inspirent le respect dans la rue." },
@@ -567,7 +572,7 @@
             { id: "san-09", cat: "sante", titre: "Bannissement des psys", postulat: "Parler de ses problèmes à quelqu'un assis sur un canapé est une habitude de feignant.", action: "Interdiction de la psychologie. Si tu es triste, va hurler contre une falaise ou frappe un chêne jusqu'à la fin de la douleur.", financement: "Accès libre aux falaises nationales.", repercussions: "Esprit combatif restauré et augmentation de la robustesse des mains." },
             { id: "san-10", cat: "sante", titre: "Prothèses d'honneur", postulat: "Les prothèses modernes en plastique blanc coûtent trop cher.", action: "Remplacement des prothèses par des crochets en fer forgé ou des jambes de bois cloutées artisanales faites par le menuisier.", financement: "Bois brut de chêne récupéré gratuitement.", repercussions: "Style de pirate féroce garanti pour tous nos blessés nationaux." },
 
-            // TRAVAIL (10 mesures)
+            // TRAVAIL
             { id: "tra-51", cat: "travail", titre: "Retraite des bras fatigués", postulat: "Fixer un âge légal de retraite est absurde car tout le monde n'a pas la même force.", action: "La retraite est fixée au moment précis où tes bras ne peuvent plus soulever une épée de combat de 15 kilos.", financement: "Vérification annuelle par test physique public devant le maire.", repercussions: "Les fainéants s'entraînent dur pour rester forts, tandis que les courageux partent au repos mérité." },
             { id: "tra-52", cat: "travail", titre: "Abolition du télétravail virtuel", postulat: "Le télétravail permet de rester en pyjama de lâche devant un écran en mangeant des biscuits.", action: "Interdiction du travail sur écran à domicile. Obligation de travailler debout dans des ateliers en portant une armure de cuir.", financement: "Neutre (les entreprises fournissent le cuir de protection brute).", repercussions: "Disparition des douleurs lombaires et retour de la solidarité d'atelier physique." },
             { id: "tra-53", cat: "travail", titre: "Évaluation du personnel au Gourdin", postulat: "Les entretiens annuels individuels de performance sont pleins d'hypocrisie managériale.", action: "Remplacement de l'entretien par un combat singulier à mains nues contre le DRH du service.", financement: "Une arène de sciure aménagée dans le hall d'entrée de chaque entreprise.", repercussions: "Les managers apprennent le respect de leurs ouvriers vigoureux." },
@@ -579,7 +584,7 @@
             { id: "tra-59", cat: "travail", titre: "Reconversion des Influenceurs", postulat: "Les influenceurs numériques font des danses futiles devant des caméras au lieu d'aider la patrie.", action: "Envoi obligatoire des influenceurs défricher la Creuse sauvage à l'aide de haches de silex.", financement: "Fourniture de haches bas de gamme.", repercussions: "La Creuse devient un verger national magnifique et internet s'assainit naturellement." },
             { id: "tra-60", cat: "travail", titre: "Clans de guerre syndicaux", postulat: "Les syndicats actuels signent des papiers de capitulation avec le patronat.", action: "Remplacement des syndicats par des clans de guerre jurés qui s'affrontent lors d'un grand tournoi annuel pour les budgets.", financement: "Arène de combat financée par le ministère du Travail.", repercussions: "Représentation ouvrière forte, respectée et redoutable." },
 
-            // LOGEMENT (10 mesures)
+            // LOGEMENT
             { id: "log-01", cat: "logement", titre: "Copro de Combat", postulat: "Les réunions de copropriété sont pleines de commérages sur la couleur du paillasson.", action: "Remplacement du syndic par une chefferie de tribu. Le résident le plus fort de l'immeuble dicte la loi.", financement: "Neutre, se règle dans la cour de l'immeuble.", repercussions: "Décisions rapides : la toiture est réparée dès que le chef dit qu'il a froid au crâne." },
             { id: "log-02", cat: "logement", titre: "Permis de Construire Sauvage", postulat: "Demander l'autorisation d'urbanisme prend des années de parchemins tamponnés.", action: "Abolition des permis de construire. Tu bâtis ta hutte où tu veux. Si ton voisin râle, vous réglez ça à la hache.", financement: "Bois gratuit à couper soi-même.", repercussions: "Fin de la crise du logement en 3 semaines." },
             { id: "log-03", cat: "logement", titre: "Plafonnement des huttes", postulat: "Les grands immeubles modernes masquent la vue du ciel et offensent nos ancêtres.", action: "Interdiction de construire des bâtiments plus hauts qu'un jet de javelot standard.", financement: "Neutre.", repercussions: "Villes à taille humaine et de l'air frais pour tout le monde." },
@@ -591,7 +596,7 @@
             { id: "log-09", cat: "logement", titre: "Double vitrage de bête", postulat: "Le verre double vitrage moderne isole trop les habitants des bruits de la nature sauvage.", action: "Remplacement du vitrage par des peaux de bêtes tendues garantissant une meilleure isolation spirituelle.", financement: "Peaux récupérées lors de la chasse communale.", repercussions: "Diminution de la consommation de chauffage et reconnexion auditive permanente avec le vent sauvage." },
             { id: "log-10", cat: "logement", titre: "Propriété de Chasse", postulat: "Les agences immobilières prennent des commissions indécentes pour des maisons vides.", action: "Une maison vacante appartient légalement à celui qui massacre les fantômes ou monstres qui l'occupent.", financement: "Neutre.", repercussions: "Les jeunes acquièrent des châteaux médiévaux en éliminant les rats géants dedans." },
 
-            // CULTURE (10 mesures)
+            // CULTURE
             { id: "cul-01", cat: "culture", titre: "Destruction d'Internet", postulat: "Internet détruit les relations humaines réelles et rend les cerveaux mous avec des vidéos de chats.", action: "Destruction physique des serveurs. Remplacement des e-mails par des messagers nus courant à travers champs.", financement: "Rémunération des messagers en bière à l'arrivée.", repercussions: "Regain d'activité physique nationale et fin du harcèlement numérique." },
             { id: "cul-02", cat: "culture", titre: "Tambours de Mammouth", postulat: "La musique moderne électronique fait des bruits de casseroles futiles.", action: "Interdiction des synthétiseurs. Seuls les tambours en peau de mammouth et les cornes d'os sont autorisés.", financement: "Fabrication de tambours géants par le ministère de la Culture.", repercussions: "Musique puissante qui fait trembler les vitres et réveille la ferveur guerrière." },
             { id: "cul-03", cat: "culture", titre: "Place de la Baston numérique", postulat: "Les gens s'insultent lâchement derrière des pseudonymes sur les réseaux sociaux.", action: "Bannissement de Twitter/X. Création d'une fosse à insultes publique où l'on vient s'insulter face à face.", financement: "Une simple fosse creusée au milieu de chaque ville.", repercussions: "Libération de la colère saine et disparition de l'anonymat couard." },
@@ -603,7 +608,7 @@
             { id: "cul-09", cat: "culture", titre: "Le téléphone à corne", postulat: "Les smartphones rendent les gens distraits dans la rue au lieu de surveiller les brigands.", action: "Bannissement des téléphones portables. Retour du pot de yaourt avec ficelle, mais sculpté dans de la corne.", financement: "Corne de bélier fournie par les bergers nationaux.", repercussions: "Les gens se parlent enfin de près et surveillent les alentours." },
             { id: "cul-10", cat: "culture", titre: "Le Banquet aux musées", postulat: "Les musées sont trop silencieux, on n'a même pas le droit de manger dedans.", action: "Bascule de tous les musées nationaux en grandes salles de banquet où l'on mange des sangliers rôtis sur les ruines.", financement: "Billetterie couplée avec la viande fraîche.", repercussions: "Fréquentation des musées en hausse de 400% chez les guerriers affamés." },
 
-            // DIPLOMATIE (10 mesures)
+            // DIPLOMATIE
             { id: "dip-01", cat: "diplomatie", titre: "Sortie unilatérale de l'UE à la masse", postulat: "Les traités européens font trop de pages à lire pour un seul homme.", action: "Sortie immédiate de l'UE en détruisant physiquement à coups de masse les barrières douanières.", financement: "Une équipe de 50 colosses équipés de masses de forge.", repercussions: "Souveraineté territoriale totale retrouvée en moins d'une après-midi." },
             { id: "dip-02", cat: "diplomatie", titre: "Émissaires de la Terreur", postulat: "Les ambassadeurs portent des costumes serrés et parlent avec trop de politesse hypocrite.", action: "Remplacement des ambassadeurs par des Émissaires arborant des colliers d'oreilles d'ennemis vaincus.", financement: "Fourniture de colliers par les forces spéciales de Kromag.", repercussions: "Respect immédiat de la parole de la France lors de toutes les négociations internationales." },
             { id: "dip-03", cat: "diplomatie", titre: "G7 du Banquet Suprême", postulat: "Les réunions du G7 durent des jours pour signer des parchemins que personne ne respecte.", action: "Kromag impose ses décisions géopolitiques en buvant plus d'hydromel que les 6 autres dirigeants réunis.", financement: "Dix tonneaux de cervoise d'honneur.", repercussions: "La France dicte sa loi à l'international grâce à la résistance hépatique de son chef." },
@@ -615,7 +620,7 @@
             { id: "dip-09", cat: "diplomatie", titre: "Visa Ours Brun", postulat: "Les tampons sur les passeports papier sont faciles à falsifier par les faussaires.", action: "Le visa d'entrée en France ne s'obtient qu'après avoir terrassé un ours brun au poste de frontière de Maubeuge.", financement: "Entretien de la flotte d'ours frontaliers.", repercussions: "Seuls les étrangers les plus robustes et respectables s'installent sur notre territoire." },
             { id: "dip-10", cat: "diplomatie", titre: "Raid sur les paradis fiscaux", postulat: "Les riches exilent leur or au Luxembourg ou aux îles Caïmans pour ne pas participer aux banquets.", action: "Envoi immédiat de la flotte de drakkars présidentiels piller les banques de ces pays de voleurs.", financement: "S'autofinance au premier coffre-fort enfoncé au bélier.", repercussions: "Trésor public français débordant d'or fin et fin définitive de la fuite des capitaux." },
 
-            // INSTITUTIONS (10 mesures)
+            // INSTITUTIONS
             { id: "ins-91", cat: "institutions", titre: "Assemblée des Gladiateurs", postulat: "Les députés passent leur temps à crier dans l'hémicycle au lieu de se battre honnêtement.", action: "Remplacement de l'Assemblée Nationale par une arène de combat. Les lois sont votées à la survie des députés.", financement: "Suppression des indemnités parlementaires futiles pour financer la sciure de l'arène.", repercussions: "Des lois votées en moins de 10 minutes et une réduction drastique du nombre de politiciens professionnels." },
             { id: "ins-92", cat: "institutions", titre: "Le Premier Gourdin", postulat: "Le Premier Ministre moderne passe son temps à signer des décrets dans un bureau feutré.", action: "Le Premier Ministre portera le titre de 'Premier Gourdin' et exécutera physiquement les décisions de Kromag.", financement: "Fourniture d'un gourdin de chêne clouté de 12 kg.", repercussions: "Exécution immédiate des ordres présidentiels sans recours administratif possible." },
             { id: "ins-93", cat: "institutions", titre: "Formulaires de Pierre Cerfa", postulat: "Les parchemins administratifs Cerfa polluent nos fôrets et coupent nos arbres.", action: "Toute demande d'aide ou papier officiel doit être gravée sur une stèle de pierre de 20 kg et jetée au guichet.", financement: "Les usagers doivent apporter leur propre pierre extraite de leur jardin.", repercussions: "Baisse de 98% des demandes d'aides administratives administratives par fatigue musculaire." },
@@ -631,14 +636,16 @@
         function showPage(pageId) {
             ['accueil', 'programme', 'candidat', 'contact'].forEach(id => {
                 document.getElementById(`view-${id}`).classList.add('hidden');
-                document.getElementById(`nav-${id}`).className = "px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20";
+                // Adaptation de la classe par défaut : utilisation de textes compacts pour mobile (text-[10px]) et d'une largeur verrouillée
+                document.getElementById(`nav-${id}`).className = "px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20 whitespace-nowrap";
             });
 
             document.getElementById(`view-${pageId}`).classList.remove('hidden');
             
             const activeBtn = document.getElementById(`nav-${pageId}`);
             if (activeBtn) {
-                activeBtn.className = "px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold tracking-wider font-epic transition bg-barbare-blood text-white shadow-md border border-barbare-gold/30";
+                // Application de la classe active réajustée pour mobile
+                activeBtn.className = "px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition bg-barbare-blood text-white shadow-md border border-barbare-gold/30 whitespace-nowrap";
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -716,7 +723,7 @@
             if (!derniereMesureTiree) return;
             const text = `Mesure Barbare de Kromag 2027 : "${derniereMesureTiree.titre}"\nAction féroce : ${derniereMesureTiree.action}\nAssez de blabla, place aux baffes !`;
             
-            // Méthode de secours compatible iframe
+            // Méthode compatible iframe
             const el = document.createElement('textarea');
             el.value = text;
             document.body.appendChild(el);
@@ -930,7 +937,6 @@
                 const result = await response.json();
                 
                 if (response.status === 200 && result.success) {
-                    // Succès de la transmission !
                     const alertBox = document.createElement('div');
                     alertBox.className = "bg-red-800 text-white text-sm font-semibold p-4 rounded-xl shadow-2xl max-w-sm flex flex-col gap-2 border-2 border-barbare-gold animate-bounce z-50 font-epic";
                     
@@ -949,25 +955,19 @@
                     container.appendChild(alertBox);
 
                     setTimeout(() => alertBox.remove(), 7000);
-                    
-                    // Réinitialisation du formulaire
                     form.reset();
                 } else {
-                    // Retour d'erreur de l'API de Web3Forms (mauvaise clé d'accès, etc.)
                     showToast("❌ Échec : " + (result.message || "Une mauvaise magie a perturbé Web3Forms."));
                 }
             } catch (error) {
-                // Erreurs réseaux / CORS / hors ligne
                 showToast("❌ La foudre chamanique a frappé le réseau. Réessaie plus tard !");
                 console.error("Erreur de soumission :", error);
             } finally {
-                // Rétablissement du bouton de soumission
                 btn.disabled = false;
                 btn.innerHTML = originalBtnText;
             }
         }
 
-        // INITIALISATION DES PROVINCES DE FRANCE (101 DEPARTEMENTS ET DOM-TOM BARBARES)
         function initProvincesGaule() {
             const select = document.getElementById('departement-select');
             if (!select) return;
