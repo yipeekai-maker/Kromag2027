@@ -10,7 +10,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Metamorphous (style fantastique/runique), Permanent Marker (manuscrit féroce), Inter (corps de texte lisible) -->
+    <!-- Google Fonts: Metamorphous, Permanent Marker, Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Metamorphous&family=Permanent+Marker&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
                             crimson: '#7f1d1d',    // Rouge plus sombre pour dégradés
                             steel: '#334155',      // Acier des armes
                             darksteel: '#1e293b',  // Acier trempé/ombre
-                            bronze: '#d97706',     // Or pille/bronze
+                            bronze: '#d97706',     // Or pillé/bronze
                             gold: '#f59e0b',       // Or pur brillant
                             stone: '#111827',      // Fond roche noire
                             ash: '#f5f5f4',        // Blanc cendre pour texte
@@ -118,8 +118,8 @@
                 </div>
             </a>
             
-            <!-- Navigation optimisée mobile : flex-nowrap + no-scrollbar pour tout afficher sur une seule ligne -->
-            <nav class="flex flex-nowrap items-center gap-1.5 sm:gap-4 overflow-x-auto max-w-full pb-1 no-scrollbar w-full md:w-auto justify-start sm:justify-center md:justify-start">
+            <!-- Navigation optimisée mobile : md:overflow-visible empêche la coupure de la liste déroulante sur ordinateur -->
+            <nav class="flex flex-nowrap items-center gap-1.5 sm:gap-4 overflow-x-auto md:overflow-visible max-w-full pb-1 no-scrollbar w-full md:w-auto justify-start sm:justify-center md:justify-start">
                 <button onclick="showPage('accueil')" id="nav-accueil" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition bg-barbare-blood text-white shadow-md border border-barbare-gold/30 whitespace-nowrap">QG de Campagne</button>
                 
                 <!-- MENU DÉROULANT DES THEMES -->
@@ -127,8 +127,8 @@
                     <button onclick="showPage('programme')" id="nav-programme" class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold tracking-wider font-epic transition text-barbare-ash hover:bg-barbare-blood/20 whitespace-nowrap">
                         <span>Le Programme</span>
                     </button>
-                    <!-- Liste déroulante des catégories barbares -->
-                    <div class="absolute left-0 top-full pt-2 w-64 hidden group-hover:block z-50">
+                    <!-- Liste déroulante des catégories barbares (visible uniquement sur grand écran md au survol) -->
+                    <div class="absolute left-0 top-full pt-2 w-64 hidden md:group-hover:block z-50">
                         <div id="dropdown-menu" class="bg-barbare-stone/95 backdrop-blur-md border border-barbare-blood/30 rounded-xl shadow-2xl py-2">
                             <!-- Rempli dynamiquement -->
                         </div>
@@ -211,14 +211,13 @@
                     </div>
                 </div>
 
-                <!-- Partie droite : Photo de Kromag à Paris -->
+                <!-- Partie droite : Photo de Kromag à Paris avec hauteur fixée à 550px sur mobile pour préserver la tête -->
                 <div class="lg:col-span-5 flex flex-col justify-end items-center p-8 relative h-[550px] lg:h-auto lg:min-h-[500px] overflow-hidden rounded-b-3xl lg:rounded-b-none lg:rounded-r-3xl">
                     <!-- Image de fond officielle de Kromag : object-[center_25%] permet de caler le visage et le torse parfaitement dans le cadre -->
                     <img src="images/kromag.png" alt="Kromag à Paris" class="absolute inset-0 w-full h-full object-cover object-[center_25%] opacity-90 transition duration-500 hover:scale-105">
                     
                     <!-- Voile dégradé de protection pour maintenir un excellent contraste -->
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent z-0"></div>
-
 
                     <!-- Visuel central du candidat interactif -->
                     <div class="mt-auto text-center space-y-4 z-10 w-full">
@@ -529,7 +528,7 @@
             { id: "edu-02", cat: "education", titre: "Suppression de la géométrie inutile", postulat: "La seule ligne droite requise dans la vie est celle d'un javelot bien lancé.", action: "Suppression définitive des cours de géométrie et trigonométrie abstraite au collège.", financement: "Redirection des profs de maths vers des cours de forge d'armes de poing.", repercussions: "Baisse immédiate du décrochage scolaire, les élèves adorent frapper l'enclume." },
             { id: "edu-03", cat: "education", titre: "L'apprentissage par le cuir", postulat: "Les enfants passent trop de temps devant des vitres lumineuses tactiles de lâches.", action: "Bannissement des tablettes à l'école. Remplacement par l'apprentissage obligatoire de la forge et du tannage dès l'âge de 6 ans.", financement: "Sponsorisé par les guildes de forgerons locaux en échange de main-d'œuvre gratuite.", repercussions: "Des enfants avec des biceps volumineux et des vêtements en peau cousus main." },
             { id: "edu-04", cat: "education", titre: "Le Cartable de Rocher", postulat: "Nos enfants sont chétifs et se plaignent du poids de leurs livres.", action: "Obligation de remplir les cartables scolaires avec au moins 30 kg de cailloux pour fortifier les trapèzes dès le CP.", financement: "Roches gratuites récupérées lors du nettoyage des chemins de terre communaux.", repercussions: "Génération de guerriers au dos indestructible d'ici 2035." },
-            { id: "edu-05", cat: "education", titre: "Brevet de Lancer de Hache", postulat: "Savoir utiliser un compas ne sauvera jamais un adolescent face à un brigand de chemin.", action: "Le lancer de hache de précision devient la matière principale au Brevet des collèges.", financement: "Fourniture de cibles en bois brut par l'Office National des Forêts sauvages.", repercussions: "Les agressions dans la cour de récréation chutent par peur réciproque de reprisallles hachées." },
+            { id: "edu-05", cat: "education", titre: "Brevet de Lancer de Hache", postulat: "Savoir utiliser un compas ne sauvera jamais un adolescent face à un brigand de chemin.", action: "Le lancer de hache de précision devient la matière principale au Brevet des collèges.", financement: "Fourniture de cibles en bois brut par l'Office National des Forêts sauvages.", repercussions: "Les agressions dans la cour de récréation chutent par peur réciproque de représailles hachées." },
             { id: "edu-06", cat: "education", titre: "Le Fléau Pédagogique", postulat: "Les bavardages incessants ralentissent le programme scolaire.", action: "Les enseignants sont autorisés à utiliser un fléau d'armes léger en cuir bouilli pour maintenir l'attention des élèves.", financement: "Fabrication artisanale des fléaux par la classe de travaux manuels.", repercussions: "Climat scolaire studieux et respectueux de l'autorité enseignante." },
             { id: "edu-07", cat: "education", titre: "Mêlée générale Parcoursup", postulat: "Les algorithmes informatiques de tri créent de l'injustice pour nos jeunes.", action: "Remplacement de Parcoursup par une mêlée générale dans la boue. Les 500 derniers debout choisissent leur université.", financement: "Une grande bâche et de l'eau pour faire de la boue sur la pelouse du ministère de l'Éducation.", repercussions: "Orientation juste, transparente et validée par la robustesse physique." },
             { id: "edu-08", cat: "education", titre: "L'heure du Regard Noir", postulat: "Les enfants n'ont plus d'affirmation personnelle.", action: "Remplacement des cours de philosophie par une heure de regard noir dans les yeux du voisin sans cligner des paupières.", financement: "Totalement gratuit, aucun matériel nécessaire.", repercussions: "Des citoyens sûrs d'eux, intimidants et incapables de se laisser manipuler par les publicités de parfum." },
